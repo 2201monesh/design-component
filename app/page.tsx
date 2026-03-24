@@ -1,10 +1,9 @@
+import DiscordAnimation from "@/components/DiscordAnimation";
 
 export default function Home() {
   return (
-    <div>
-      <p>
-        test
-      </p>
+    <div className="flex flex-col items-center justify-center w-screen h-screen">
+      <DiscordAnimation />
     </div>
   );
 }
