@@ -17,7 +17,7 @@ const DiscordAnimation = () => {
   const [isSmall, setIsSmall] = useState(false);
 
   return (
-    <div className='w-screen h-screen flex items-center justify-center bg-[#0f0f12]' style={{ fontFamily: "var(--font-geist-sans)" }}>
+    <div className='w-screen h-screen flex items-center justify-center bg-[#f0f0f5]' style={{ fontFamily: "var(--font-geist-sans)" }}>
       <LayoutGroup>
       <motion.div
         className='relative'
@@ -95,23 +95,23 @@ export default DiscordAnimation;
 
 const Box = () => {
   return (
-   <div className='w-full h-full rounded-3xl bg-[#16161c]'>
+   <div className='w-full h-full rounded-3xl bg-white'>
     <div className='h-[20%] flex items-center justify-between p-4'>
         <div className='flex items-center justify-center'>
             <div className='mr-3 w-11 bg-[#5a65ee] h-11 rounded-full flex items-center justify-center'>
             <Image src={whiteDiscord} alt="Discord" width={24} height={24} className='brightness-0 invert' />
             </div>
             <div>
-                <p className='text-[#e2e2e9]'>Monesh</p>
-                <p className='text-sm text-[#6b6b7a]'>100+ members</p>
+                <p className='text-[#1a1a2e]'>Monesh</p>
+                <p className='text-sm text-[#9ca3af]'>100+ members</p>
             </div>
         </div>
-        <div className='border border-[#2a2a38] w-20 h-8 rounded-3xl flex items-center justify-center cursor-pointer'>
+        <div className='border border-[#d1d1dc] w-20 h-8 rounded-3xl flex items-center justify-center cursor-pointer'>
             <Image src={DiscordImage} alt="Discord" width={22} height={22} className='mr-2' />
-            <span className='text-[#e2e2e9]'>Join</span>
+            <span className='text-[#1a1a2e]'>Join</span>
         </div>
     </div>
-    <div className='h-[77%] m-1.5 rounded-2xl bg-[#1c1c24] overflow-y-scroll no-scrollbar'>
+    <div className='h-[77%] m-1.5 rounded-2xl bg-[#f5f5fa] overflow-y-scroll no-scrollbar'>
         <BoxRow image="https://galaxypfp.com/wp-content/uploads/2025/12/aesthetic-pfp-profile-icon-style-shark.jpg" name="Sam" status="online" id="one" />
         <BoxRow image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT20CJX-wY1zOOsvFS96N6BD3oMUAwSenN9FQ&s" name="James" status="idle" id="two" />
         <BoxRow image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCT5bgvbosj5aanRMSH7-VgBjplXhoGgJu9A&s" name="Kate" status="away" id="three" />
@@ -125,23 +125,23 @@ const Box = () => {
 
 const SmallBox = () => {
   return (
-   <div className='w-full h-full rounded-3xl bg-[#16161c]'>
+   <div className='w-full h-full rounded-3xl bg-white'>
     <div className='h-16 flex items-center justify-between p-4'>
         <div className='flex items-center justify-center'>
             <div className='mr-3 w-11 bg-[#5a65ee] h-11 rounded-full flex items-center justify-center'>
             <Image src={whiteDiscord} alt="Discord" width={24} height={24} className='brightness-0 invert' />
             </div>
             <div>
-                <p className='text-[#e2e2e9]'>Monesh</p>
-                <p className='text-sm text-[#6b6b7a]'>100+ members</p>
+                <p className='text-[#1a1a2e]'>Monesh</p>
+                <p className='text-sm text-[#9ca3af]'>100+ members</p>
             </div>
         </div>
-        <div className='border border-[#2a2a38] w-20 h-8 rounded-3xl flex items-center justify-center cursor-pointer'>
+        <div className='border border-[#d1d1dc] w-20 h-8 rounded-3xl flex items-center justify-center cursor-pointer'>
             <Image src={DiscordImage} alt="Discord" width={22} height={22} className='mr-2' />
-            <span className='text-[#e2e2e9]'>Join</span>
+            <span className='text-[#1a1a2e]'>Join</span>
         </div>
     </div>
-    <div className='flex-1 m-1.5 rounded-2xl bg-[#1c1c24] flex items-center justify-center gap-2 py-3'>
+    <div className='flex-1 m-1.5 rounded-2xl bg-[#f5f5fa] flex items-center justify-center gap-2 py-3'>
        <motion.img layoutId='one' transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }} src="https://galaxypfp.com/wp-content/uploads/2025/12/aesthetic-pfp-profile-icon-style-shark.jpg" className='w-12 h-12 rounded-full' alt="" />
        <motion.img layoutId='two' transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT20CJX-wY1zOOsvFS96N6BD3oMUAwSenN9FQ&s" className='w-12 h-12 rounded-full' alt="" />
        <motion.img layoutId='three' transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCT5bgvbosj5aanRMSH7-VgBjplXhoGgJu9A&s" className='w-12 h-12 rounded-full' alt="" />
@@ -158,8 +158,8 @@ const BoxRow = ({image, name, status, id}: {image: string, name: string, status:
         <div className='w-full h-16 flex items-center px-3'>
             <motion.img layoutId={id} transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }} src={image} alt="" className="mr-3 w-10 h-10 rounded-full object-cover" />
             <div>
-                <p className='text-[#e2e2e9]'>{name}</p>
-                <p className='text-[#6b6b7a]'>{status}</p>
+                <p className='text-[#1a1a2e]'>{name}</p>
+                <p className='text-[#9ca3af]'>{status}</p>
             </div>
         </div>
     )
@@ -175,26 +175,26 @@ const BoxRow = ({image, name, status, id}: {image: string, name: string, status:
 
 const CopyIcon = () => {
     return(
-        <div className='w-10 h-10 bg-[#1e1e28] border border-[#2a2a38] rounded-full flex items-center justify-center shadow cursor-pointer'>
-            <GoLink size={22} className='text-[#e2e2e9]' />
+        <div className='w-10 h-10 bg-white border border-[#d1d1dc] rounded-full flex items-center justify-center shadow cursor-pointer'>
+            <GoLink size={22} className='text-[#1a1a2e]' />
         </div>
     )
 }
 
 const NavigationBox = ({ isSmall, onToggle }: { isSmall: boolean, onToggle: (v: boolean) => void }) => {
     return(
-        <div className='h-10 bg-[#1e1e28] border border-[#2a2a38] rounded-full flex items-center justify-center shadow-lg px-3 gap-2'>
+        <div className='h-10 bg-white border border-[#d1d1dc] rounded-full flex items-center justify-center shadow-lg px-3 gap-2'>
             <button
                 onClick={() => onToggle(false)}
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-150 cursor-pointer ${!isSmall ? 'bg-[#2e2e3a]' : 'hover:bg-[#252530]'}`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-150 cursor-pointer ${!isSmall ? 'bg-[#e8e8f0]' : 'hover:bg-[#f0f0f5]'}`}
             >
-                <BiRectangle size={20} className={!isSmall ? 'text-[#e2e2e9]' : 'text-[#6b6b7a]'} />
+                <BiRectangle size={20} className={!isSmall ? 'text-[#1a1a2e]' : 'text-[#9ca3af]'} />
             </button>
             <button
                 onClick={() => onToggle(true)}
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-150 cursor-pointer ${isSmall ? 'bg-[#2e2e3a]' : 'hover:bg-[#252530]'}`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-150 cursor-pointer ${isSmall ? 'bg-[#e8e8f0]' : 'hover:bg-[#f0f0f5]'}`}
             >
-                <LuRectangleHorizontal size={20} className={isSmall ? 'text-[#e2e2e9]' : 'text-[#6b6b7a]'} />
+                <LuRectangleHorizontal size={20} className={isSmall ? 'text-[#1a1a2e]' : 'text-[#9ca3af]'} />
             </button>
         </div>
     )
