@@ -36,7 +36,7 @@ const HoverEffect = () => {
       {hovered === 'outer' && <CardOutline />}
 
       <div
-        className="relative w-full h-[50%] border rounded-lg border-neutral-200"
+        className={`relative w-full h-[50%] border rounded-lg border-neutral-200 transition-colors duration-200 ${hovered === 'top' ? 'bg-blue-500/5' : ''}`}
         {...bind('top')}
       >
         {hovered === 'top' && <CardOutline />}
@@ -44,13 +44,13 @@ const HoverEffect = () => {
 
       <div className="w-full h-[50%] flex gap-4">
         <div
-          className="relative w-[40%] border h-full rounded-lg border-neutral-200"
+          className={`relative w-[40%] border h-full rounded-lg border-neutral-200 transition-colors duration-200 ${hovered === 'bottom-left' ? 'bg-blue-500/5' : ''}`}
           {...bind('bottom-left')}
         >
           {hovered === 'bottom-left' && <CardOutline />}
         </div>
         <div
-          className="relative w-[60%] h-full border rounded-lg border-neutral-200"
+          className={`relative w-[60%] h-full border rounded-lg border-neutral-200 transition-colors duration-200 ${hovered === 'bottom-right' ? 'bg-blue-500/5' : ''}`}
           {...bind('bottom-right')}
         >
           {hovered === 'bottom-right' && <CardOutline />}
