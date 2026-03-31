@@ -10,14 +10,14 @@ const GRAVITY  = 0.42
 const SUBSTEPS = 8
 const ITERS    = 12
 const DAMPING  = 0.997   // per substep  →  0.997^8 ≈ 0.977 per frame
-const BOUNCE   = 0.04
+const BOUNCE   = 0.01
 const FRICTION = 0.62
 const GRAB_R   = 72
 const FONT     = '16px Inter, system-ui, sans-serif'
 
 // Peel rate: frames between freeing one more node while holding
 // Faster the further you pull from the grab origin
-const peelEvery = (d: number) => Math.max(3, Math.round(20 - d / 7))
+const peelEvery = (d: number) => Math.max(1, Math.round(8 - d / 10))
 
 interface PNode {
   x: number; y: number
@@ -52,18 +52,18 @@ export default function DraggableChain() {
         canvas.height = window.innerHeight
         ground.current = canvas.height - 10
 
-        const words = TEXT.split(' ')
+        const chars = TEXT.split('')
         const spans = Array.from(div.querySelectorAll<HTMLSpanElement>('span'))
-        if (spans.length !== words.length) return
+        if (spans.length !== chars.length) return
 
-        // Measure every word's center in viewport coordinates
+        // Measure every character's center in viewport coordinates
         type Measured = { cx: number; cy: number; word: string; hw: number }
         const measured: Measured[] = spans.map((s, i) => {
           const r = s.getBoundingClientRect()
           return {
             cx: r.left + r.width / 2,
             cy: r.top  + r.height / 2,
-            word: words[i],
+            word: chars[i],
             hw: r.width / 2,
           }
         })
@@ -168,13 +168,18 @@ export default function DraggableChain() {
           p.x += vx
           p.y += vy + G_SUB
 
-          // Ground: absorb almost all energy so words rest, not bounce
+          // Ground: absorb almost all energy so letters rest, not bounce
           if (p.y > GND) {
             const vy_ = p.y  - p.py
             const vx_ = p.x  - p.px
             p.y  = GND
             p.py = GND + vy_ * BOUNCE
             p.px = p.x - vx_ * FRICTION
+          }
+
+          // Kill micro-vibrations so settled letters go fully still
+          if (Math.hypot(p.x - p.px, p.y - p.py) < 0.25) {
+            p.px = p.x; p.py = p.y
           }
         }
 
@@ -269,8 +274,8 @@ export default function DraggableChain() {
           style={{ visibility: ready ? 'hidden' : 'visible' }}
         >
           <p style={{ fontFamily: 'Inter, system-ui, sans-serif', fontSize: '16px', lineHeight: '24px' }}>
-            {TEXT.split(' ').map((w, i, a) => (
-              <span key={i}>{w}{i < a.length - 1 ? ' ' : ''}</span>
+            {TEXT.split('').map((c, i) => (
+              <span key={i}>{c}</span>
             ))}
           </p>
         </div>
