@@ -1,4 +1,5 @@
 import DiscordAnimation from "@/components/DiscordAnimation";
+import DraggableChain from "@/components/DraggableChain";
 import GithubContributionGraph from "@/components/GithubContributionGraph";
 import HoverEffect from "@/components/HoverEffect";
 import HoverPageComponent from "@/components/HoverPageComponent";
@@ -15,7 +16,8 @@ export default function Home() {
       {/* <HoverEffect /> */}
       {/* <HoverPageComponent /> */}
       {/* <GithubContributionGraph /> */}
-      <SelectCardsAnimation />
+      {/* <SelectCardsAnimation /> */}
+      <DraggableChain />
     </div>
   );
 }
