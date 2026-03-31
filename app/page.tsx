@@ -1,7 +1,9 @@
 import DiscordAnimation from "@/components/DiscordAnimation";
+import GithubContributionGraph from "@/components/GithubContributionGraph";
 import HoverEffect from "@/components/HoverEffect";
 import HoverPageComponent from "@/components/HoverPageComponent";
 import MacKeyboard from "@/components/MacKeyboard";
+import SelectCardsAnimation from "@/components/SelectCardsAnimation";
 import SpringCards from "@/components/SpringCards";
 
 export default function Home() {
@@ -10,8 +12,10 @@ export default function Home() {
       {/* <DiscordAnimation /> */}
       {/* <MacKeyboard /> */}
       {/* <SpringCards /> */}
-      <HoverEffect />
+      {/* <HoverEffect /> */}
       {/* <HoverPageComponent /> */}
+      {/* <GithubContributionGraph /> */}
+      <SelectCardsAnimation />
     </div>
   );
 }
