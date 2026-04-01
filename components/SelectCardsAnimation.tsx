@@ -146,7 +146,7 @@ const SecondRow = ({ selected, onToggle }: { selected: Set<number>; onToggle: (i
                 <div
                     key={i}
                     onClick={() => onToggle(i)}
-                    className={`relative w-20 h-20 border rounded-2xl flex items-center justify-center shrink-0 bg-white cursor-pointer transition-colors duration-200 ${selected.has(i) ? 'border-green-500' : 'border-neutral-300'}`}
+                    className={`relative w-20 h-20 border rounded-2xl flex items-center justify-center shrink-0 bg-white cursor-pointer transition-colors duration-200 ${selected.has(i) ? 'border-green-500' : 'border-neutral-200'}`}
                 >
                     <Image src={src} alt={alt} width={32} height={32} className='object-contain' />
                     <AnimatePresence>
