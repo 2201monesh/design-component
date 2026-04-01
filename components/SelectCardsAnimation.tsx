@@ -39,8 +39,8 @@ const SelectCardsAnimation = () => {
     }, [confirmed])
 
   return (
-    <div className='w-screen h-screen flex items-center justify-center'>
-        <div className='w-[30%] h-[65%] flex flex-col items-center justify-center bg-[#fcfcfc] gap-y-4 overflow-hidden'>
+    <div className='w-screen h-screen flex items-center justify-center bg-[#f2f2f2]'>
+        <div className='w-[480px] h-auto flex flex-col items-center pt-10 pb-10 bg-[#fcfcfc] gap-y-4 rounded-xl border border-neutral-200'>
             <div className='relative overflow-hidden' style={marqueeStyle}>
                 <div className='flex gap-2' style={{ animation: 'marquee 8s linear infinite', width: 'max-content' }}>
                     <Box /><Box /><Box /><Box /><Box /><Box /><Box /><Box />
@@ -62,7 +62,7 @@ const SelectCardsAnimation = () => {
                         <motion.div
                             key='overlay'
                             className='absolute inset-0 flex items-center justify-center'
-                            exit={{ opacity: 0, scale: 0.85, transition: { ease: 'easeIn', duration: 0.2 } }}
+                            exit={{ opacity: 0, scale: 0.85, transition: { ease: 'easeIn', duration: 0.13 } }}
                         >
                             {!confirmed ? (
                                 <motion.button
@@ -96,6 +96,11 @@ const SelectCardsAnimation = () => {
                         </motion.div>
                     )}
                 </AnimatePresence>
+            </div>
+
+            <div className='w-full flex flex-col px-10 pt-10'>
+              <p className='text-xl'>Async collaboration that actually works</p>
+              <p className='pt-3 text-neutral-500 text-base'>Comments, reactions, and transcripts keep conversations moving without another meeting. See who watched, get notified on feedback, and turn recordings into actionable next steps. Replace those "quick sync" calls for good.</p>
             </div>
         </div>
 
@@ -150,11 +155,11 @@ const SecondRow = ({ selected, onToggle }: { selected: Set<number>; onToggle: (i
                                 key='tick'
                                 initial={{ scale: 0, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1, transition: { duration: 0.28, ease: 'easeOut' } }}
-                                exit={{ scale: 0, opacity: 0, transition: { ease: 'easeIn', duration: 0.18 } }}
+                                exit={{ scale: 0, opacity: 0, transition: { ease: 'easeIn', duration: 0.11 } }}
                                 className='absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-green-500 flex items-center justify-center'
                             >
-                                <svg width='9' height='9' viewBox='0 0 11 11' fill='none'>
-                                    <path d='M2 5.5L4.5 8L9 3' stroke='white' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' />
+                                <svg width='9' height='9' viewBox='0 0 10 10' fill='none'>
+                                    <path d='M1.5 5.8L4 8.3L8.5 3.3' stroke='white' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' />
                                 </svg>
                             </motion.div>
                         )}

@@ -4,6 +4,7 @@ import GithubContributionGraph from "@/components/GithubContributionGraph";
 import HoverEffect from "@/components/HoverEffect";
 import HoverPageComponent from "@/components/HoverPageComponent";
 import MacKeyboard from "@/components/MacKeyboard";
+import ScratchCard from "@/components/ScratchCard";
 import SelectCardsAnimation from "@/components/SelectCardsAnimation";
 import SpringCards from "@/components/SpringCards";
 
@@ -16,8 +17,9 @@ export default function Home() {
       {/* <HoverEffect /> */}
       {/* <HoverPageComponent /> */}
       {/* <GithubContributionGraph /> */}
-      {/* <SelectCardsAnimation /> */}
-      <DraggableChain />
+      <SelectCardsAnimation />
+      {/* <DraggableChain /> */}
+      {/* <ScratchCard /> */}
     </div>
   );
 }
