@@ -221,13 +221,35 @@ export default function DraggableChain() {
     const ns = nodes.current
     const mx = e.clientX,  my = e.clientY
 
-    // Grab from the first 40% of snake nodes (= the bottom portion of the text)
     let best = -1, bestDist = GRAB_R
-    const cap = Math.floor(ns.length * 0.4)
-    for (let i = 0; i < cap; i++) {
-      const d = Math.hypot(ns[i].x - mx, ns[i].y - my)
-      if (d < bestDist) { bestDist = d; best = i }
+
+    // Find the free frontier (highest-index free node)
+    let frontier = -1
+    for (let i = ns.length - 1; i >= 0; i--) {
+      if (ns[i].free) { frontier = i; break }
     }
+
+    // Primary: search the last ~80 freed nodes — this is the "active" hanging
+    // part of the chain. Keeping the held node close to the frontier means the
+    // constraint solver has a short chain to resolve, so pulling stays snappy.
+    if (frontier >= 0) {
+      const lo = Math.max(0, frontier - 80)
+      for (let i = lo; i <= frontier; i++) {
+        const d = Math.hypot(ns[i].x - mx, ns[i].y - my)
+        if (d < bestDist) { bestDist = d; best = i }
+      }
+    }
+
+    // Fallback: use the original cap region to initiate a fresh pull when
+    // nothing near the frontier is within reach (e.g. very first grab).
+    if (best < 0) {
+      const cap = Math.floor(ns.length * 0.4)
+      for (let i = 0; i < cap; i++) {
+        const d = Math.hypot(ns[i].x - mx, ns[i].y - my)
+        if (d < bestDist) { bestDist = d; best = i }
+      }
+    }
+
     if (best < 0) return
 
     // Free the tail (nodes 0 … best-1) so they hang from the grab point
