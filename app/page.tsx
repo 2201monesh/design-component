@@ -1,3 +1,4 @@
+import AnimatedCards from "@/components/AnimatedCards";
 import DiscordAnimation from "@/components/DiscordAnimation";
 import DraggableChain from "@/components/DraggableChain";
 import GithubContributionGraph from "@/components/GithubContributionGraph";
@@ -25,7 +26,8 @@ export default function Home() {
       {/* <ScratchCard /> */}
       {/* <LetterWave /> */}
       {/* <TodoListAnimation /> */}
-      <NavBarScrollAnimation />
+      {/* <NavBarScrollAnimation /> */}
+      <AnimatedCards />
     </div>
   );
 }
