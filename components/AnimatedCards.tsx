@@ -32,7 +32,7 @@ const AnimatedCards = () => {
                         const cy = 20 + row * 38 + (i % 4) * 6 - 6;
                         const r = 7 + (i % 5) * 4;
                         return (
-                            <circle key={i} cx={cx} cy={cy} r={r} stroke="white" strokeWidth="0.8" fill="none"
+                            <circle key={i} cx={cx} cy={cy} r={r} stroke="white" strokeWidth="1.4" fill="none"
                                 className='ring-circle'
                                 style={{animationDuration: `${2.5 + (i % 5) * 0.45}s`, animationDelay: `${-(i * 0.35)}s`}}
                             />
