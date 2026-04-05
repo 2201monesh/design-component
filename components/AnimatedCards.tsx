@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, spring } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {cn} from "@/lib/utils"
 
 type card = {
@@ -209,9 +209,9 @@ const AnimatedCards = () => {
                     scale: isCurrentActive(card) ? 1 : (isAnyCardActive() ? 0.7 : 1.05)
                 }}
                 transition={{
-                    type: spring,
-                    stiffness: 100,
-                    damping: 15
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 22
                 }}
                 className={cn('w-80 p-5 rounded-3xl absolute inset-0 flex flex-col justify-between items-start overflow-hidden cursor-pointer', card.className)}>
                     {card.skeleton}
