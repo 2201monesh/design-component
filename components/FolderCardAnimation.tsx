@@ -7,7 +7,7 @@ const FolderCardAnimation = () => {
   return (
     <div
       style={{ perspective: '900px' }}
-      className='w-screen h-screen flex items-center justify-center'
+      className='w-screen h-screen flex items-center justify-center bg-neutral-300'
     >
       <div
         className='relative w-68 h-90 cursor-pointer'
@@ -18,12 +18,30 @@ const FolderCardAnimation = () => {
         {/* Back card — peeks from the right as cover opens */}
         <div className='absolute inset-0 m-auto w-68 h-90 rounded-xl bg-[#2c52a7]' />
 
+        {/* White card — sits between blue cards, slides right on hover */}
+        <div
+          className='absolute inset-0 m-auto w-64 h-78 rounded-xl bg-white overflow-hidden'
+          style={{
+            transition: 'transform 0.45s cubic-bezier(0.23, 1, 0.32, 1)',
+            transform: hovered
+              ? 'translateX(38px) rotate(3deg)'
+              : 'translateX(0px) rotate(3deg)',
+          }}
+        >
+          <p
+            className='absolute top-5 right-3 text-xs uppercase tracking-widest'
+            style={{ writingMode: 'vertical-rl', textAlign: 'end' }}
+          >
+            do not open
+          </p>
+        </div>
+
         {/* Front cover — hinge on left, right side swings back slightly */}
         <div
           className='absolute inset-0 rounded-xl bg-[#2958c8] px-4 py-6 flex flex-col justify-end'
           style={{
             transformOrigin: 'left center',
-            transition: 'transform 0.45s cubic-bezier(0.23, 1, 0.32, 1)',
+            transition: 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)',
             transform: hovered ? 'rotateY(-32deg)' : 'rotateY(0deg)',
           }}
         >
