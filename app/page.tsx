@@ -2,6 +2,7 @@ import AnimatedCards from "@/components/AnimatedCards";
 import DiscordAnimation from "@/components/DiscordAnimation";
 import DraggableChain from "@/components/DraggableChain";
 import EmailProductDesign from "@/components/EmailProductDesign";
+import FolderCardAnimation from "@/components/FolderCardAnimation";
 import GithubContributionGraph from "@/components/GithubContributionGraph";
 import HoverEffect from "@/components/HoverEffect";
 import HoverPageComponent from "@/components/HoverPageComponent";
@@ -28,8 +29,9 @@ export default function Home() {
       {/* <LetterWave /> */}
       {/* <TodoListAnimation /> */}
       {/* <NavBarScrollAnimation /> */}
-      <AnimatedCards />
+      {/* <AnimatedCards /> */}
       {/* <EmailProductDesign /> */}
+      <FolderCardAnimation />
     </div>
   );
 }
