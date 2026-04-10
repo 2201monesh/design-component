@@ -1,32 +1,30 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 
-type ClickPhase = null | 'right' | 'center' | 'returning-flip' | 'returning-pre-right' | 'returning-right' | 'returning-back'
+type ClickPhase = null | 'flying' | 'center' | 'returning-flip' | 'returning-pre-right' | 'returning-right' | 'returning-back'
 
 const FolderCardAnimation = () => {
   const [hovered, setHovered] = useState(false)
   const [clickPhase, setClickPhase] = useState<ClickPhase>(null)
-  const [centerSettled, setCenterSettled] = useState(false)
+  const [flyingElevated, setFlyingElevated] = useState(false)
 
   const handleClick = () => {
     if (clickPhase === 'center') {
-      setCenterSettled(false)
       setClickPhase('returning-flip')
       return
     }
     if (clickPhase !== null) return
-    setClickPhase('right')
+    setClickPhase('flying')
   }
 
-  // Forward: after slide-right pause, start fly-in
+  // Forward: elevate card above folder cover only after it has slid past the right edge (~32% of 1.4s)
   useEffect(() => {
-    if (clickPhase === 'right') {
-      const timer = setTimeout(() => setClickPhase('center'), 480)
-      return () => clearTimeout(timer)
-    }
+    if (clickPhase !== 'flying') { setFlyingElevated(false); return }
+    const timer = setTimeout(() => setFlyingElevated(true), 450)
+    return () => clearTimeout(timer)
   }, [clickPhase])
 
-  // Return step 1.5: one double-RAF after flip ends to commit translateX(0) before transitioning
+  // Return step 1.5: double-RAF to commit translateX(0) before slide-right transition starts
   useEffect(() => {
     if (clickPhase === 'returning-pre-right') {
       let raf1: number, raf2: number
@@ -46,61 +44,48 @@ const FolderCardAnimation = () => {
   }, [clickPhase])
 
   const handleAnimationEnd = () => {
-    if (clickPhase === 'center') {
-      setCenterSettled(true)
-    }
-    // Return step 1 done: flip complete → commit translateX(0) explicitly for one frame
-    // before starting the slide-right transition (avoids instant-jump bug)
-    if (clickPhase === 'returning-flip') {
-      setClickPhase('returning-pre-right')
-    }
+    if (clickPhase === 'flying') setClickPhase('center')
+    if (clickPhase === 'returning-flip') setClickPhase('returning-pre-right')
   }
 
   const handleTransitionEnd = (e: React.TransitionEvent<HTMLDivElement>) => {
-    // Return step 3 done: slide-back complete → reset everything
-    if (e.propertyName === 'transform' && clickPhase === 'returning-back') {
-      setClickPhase(null)
-    }
+    if (e.propertyName !== 'transform') return
+    if (clickPhase === 'returning-back') setClickPhase(null)
   }
 
   const whiteCardStyle = (() => {
-    if (clickPhase === 'right') {
+    // Forward: one seamless animation — slide right, wobble left, flip in
+    // zIndex stays low until card clears the folder (flyingElevated), then promotes above it
+    if (clickPhase === 'flying') {
       return {
-        transform: 'translateX(280px) rotateZ(3deg) perspective(700px) rotateY(0deg)',
-        transition: 'transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.45s ease-out',
-        boxShadow: 'none',
-        zIndex: 2,
+        animation: 'cardFullFlyIn 1.4s forwards',
+        zIndex: flyingElevated ? 20 : 2,
       }
     }
+    // Settled after fly-in
     if (clickPhase === 'center') {
-      if (centerSettled) {
-        return {
-          transform: 'translateX(0px) rotateZ(-5deg) perspective(700px) rotateY(180deg)',
-          transition: 'transform 0.35s ease-out, box-shadow 0.4s ease-out',
-          boxShadow: '0 10px 32px rgba(0,0,0,0.15)',
-          zIndex: 20,
-        }
-      }
       return {
-        animation: 'cardFlyIn 0.9s linear forwards',
+        transform: 'translateX(0px) rotateZ(-5deg) perspective(700px) rotateY(180deg)',
+        transition: 'transform 0.35s ease-out, box-shadow 0.4s ease-out',
+        boxShadow: '0 10px 32px rgba(0,0,0,0.15)',
         zIndex: 20,
       }
     }
-    // Return step 1: flip card back from 180° → 0° in place
+    // Return step 1: flip back from 180° → 0°
     if (clickPhase === 'returning-flip') {
       return {
         animation: 'cardFlipBack 0.55s ease-in-out forwards',
         zIndex: 20,
       }
     }
-    // Return step 1.5: explicit translateX(0) with no transition — gives browser a paint frame
+    // Return step 1.5: commit translateX(0) with no transition (one paint frame)
     if (clickPhase === 'returning-pre-right') {
       return {
         transform: 'translateX(0px) rotateZ(3deg) perspective(700px) rotateY(0deg)',
         zIndex: 20,
       }
     }
-    // Return step 2: slide right (transition starts from current pos = translateX 0)
+    // Return step 2: slide right
     if (clickPhase === 'returning-right') {
       return {
         transform: 'translateX(280px) rotateZ(3deg) perspective(700px) rotateY(0deg)',
@@ -128,19 +113,23 @@ const FolderCardAnimation = () => {
     }
   })()
 
-  // Folder opens on hover (no click) and also during the return slide-right phase
   const folderOpen = (hovered && !clickPhase) || clickPhase === 'returning-right'
 
   return (
     <div className='w-screen h-screen flex items-center justify-center bg-neutral-300'>
       <style>{`
-        @keyframes cardFlyIn {
+        @keyframes cardFullFlyIn {
           0% {
+            transform: translateX(0px) rotateZ(3deg) perspective(700px) rotateY(0deg);
+            box-shadow: none;
+            animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          32% {
             transform: translateX(280px) rotateZ(3deg) perspective(700px) rotateY(0deg);
             box-shadow: 4px 6px 14px rgba(0,0,0,0.10);
-            animation-timing-function: ease-in;
+            animation-timing-function: cubic-bezier(0.55, 0, 0.45, 1);
           }
-          50% {
+          66% {
             transform: translateX(24px) rotateZ(-3deg) perspective(700px) rotateY(90deg);
             box-shadow: 10px 18px 38px rgba(0,0,0,0.22);
             animation-timing-function: ease-out;
@@ -189,7 +178,7 @@ const FolderCardAnimation = () => {
               style={{
                 writingMode: 'vertical-rl',
                 textAlign: 'start',
-                opacity: hovered || clickPhase === 'right' || clickPhase === 'returning-right' ? 1 : 0,
+                opacity: hovered || clickPhase === 'flying' || clickPhase === 'returning-right' ? 1 : 0,
                 transition: 'opacity 0.3s ease',
               }}
             >
@@ -199,9 +188,17 @@ const FolderCardAnimation = () => {
 
           {/* Back face — pre-rotated 180° so it shows when card lands at 180° */}
           <div
-            className='absolute inset-0 rounded-xl bg-white overflow-hidden'
-            style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-          />
+            className='absolute inset-0 rounded-xl bg-white overflow-hidden flex flex-col'
+            style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)', padding: '28px 24px', gap: '16px' }}
+          >
+            <p className='text-[11px] uppercase tracking-widest text-black font-semibold'>classified</p>
+            <p className='text-[11.5px] leading-relaxed text-black'>
+              This document contains sensitive operational data. Access is restricted to authorised personnel only. Unauthorised disclosure is strictly prohibited.
+            </p>
+            <p className='text-[11.5px] leading-relaxed text-black'>
+              All contents herein are protected under internal security protocol 7-C. Any reproduction or distribution without written consent will result in immediate disciplinary action.
+            </p>
+          </div>
         </div>
 
         {/* Front cover — isolated perspective context */}
