@@ -17,10 +17,10 @@ const FolderCardAnimation = () => {
     setClickPhase('flying')
   }
 
-  // Forward: elevate card above folder cover only after it has slid past the right edge (~32% of 1.4s)
+  // Forward: elevate card above folder cover only after it has slid past the right edge (~32% of 1.2s)
   useEffect(() => {
     if (clickPhase !== 'flying') { setFlyingElevated(false); return }
-    const timer = setTimeout(() => setFlyingElevated(true), 450)
+    const timer = setTimeout(() => setFlyingElevated(true), 385)
     return () => clearTimeout(timer)
   }, [clickPhase])
 
@@ -58,16 +58,16 @@ const FolderCardAnimation = () => {
     // zIndex stays low until card clears the folder (flyingElevated), then promotes above it
     if (clickPhase === 'flying') {
       return {
-        animation: 'cardFullFlyIn 1.4s forwards',
+        animation: 'cardFullFlyIn 1.2s forwards',
         zIndex: flyingElevated ? 20 : 2,
       }
     }
     // Settled after fly-in
     if (clickPhase === 'center') {
       return {
-        transform: 'translateX(0px) rotateZ(-5deg) perspective(700px) rotateY(180deg)',
+        transform: 'translateX(0px) rotateZ(-5deg) perspective(700px) rotateY(180deg) scale(1.04)',
         transition: 'transform 0.35s ease-out, box-shadow 0.4s ease-out',
-        boxShadow: '0 10px 32px rgba(0,0,0,0.15)',
+        boxShadow: '0 10px 32px rgba(0,0,0,0.15), -5px -5px 14px rgba(0,0,0,0.18)',
         zIndex: 20,
       }
     }
@@ -113,39 +113,46 @@ const FolderCardAnimation = () => {
     }
   })()
 
-  const folderOpen = (hovered && !clickPhase) || clickPhase === 'returning-right'
+  const folderOpen = (hovered && !clickPhase) || clickPhase === 'returning-right' || clickPhase === 'returning-back'
 
   return (
     <div className='w-screen h-screen flex items-center justify-center bg-neutral-300'>
       <style>{`
         @keyframes cardFullFlyIn {
           0% {
-            transform: translateX(0px) rotateZ(3deg) perspective(700px) rotateY(0deg);
+            transform: translateX(0px) rotateZ(3deg) perspective(700px) rotateY(0deg) scale(1);
             box-shadow: none;
             animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
           }
           32% {
-            transform: translateX(280px) rotateZ(3deg) perspective(700px) rotateY(0deg);
+            transform: translateX(280px) rotateZ(3deg) perspective(700px) rotateY(0deg) scale(1.04);
             box-shadow: 4px 6px 14px rgba(0,0,0,0.10);
             animation-timing-function: cubic-bezier(0.55, 0, 0.45, 1);
           }
           66% {
-            transform: translateX(24px) rotateZ(-3deg) perspective(700px) rotateY(90deg);
+            transform: translateX(24px) rotateZ(-3deg) perspective(700px) rotateY(90deg) scale(1.06);
             box-shadow: 10px 18px 38px rgba(0,0,0,0.22);
             animation-timing-function: ease-out;
           }
           100% {
-            transform: translateX(0px) rotateZ(-5deg) perspective(700px) rotateY(180deg);
-            box-shadow: 0 10px 32px rgba(0,0,0,0.15);
+            transform: translateX(0px) rotateZ(-5deg) perspective(700px) rotateY(180deg) scale(1.04);
+            box-shadow: 0 10px 32px rgba(0,0,0,0.15), -5px -5px 14px rgba(0,0,0,0.18);
           }
+        }
+        @keyframes textFlyVisible {
+          0%   { opacity: 0; }
+          5%   { opacity: 1; }
+          26%  { opacity: 1; }
+          32%  { opacity: 0; }
+          100% { opacity: 0; }
         }
         @keyframes cardFlipBack {
           0% {
-            transform: translateX(0px) rotateZ(-5deg) perspective(700px) rotateY(180deg);
-            box-shadow: 0 10px 32px rgba(0,0,0,0.15);
+            transform: translateX(0px) rotateZ(-5deg) perspective(700px) rotateY(180deg) scale(1.04);
+            box-shadow: 0 10px 32px rgba(0,0,0,0.15), -5px -5px 14px rgba(0,0,0,0.18);
           }
           100% {
-            transform: translateX(0px) rotateZ(3deg) perspective(700px) rotateY(0deg);
+            transform: translateX(0px) rotateZ(3deg) perspective(700px) rotateY(0deg) scale(1);
             box-shadow: none;
           }
         }
@@ -178,7 +185,7 @@ const FolderCardAnimation = () => {
               style={{
                 writingMode: 'vertical-rl',
                 textAlign: 'start',
-                opacity: hovered || clickPhase === 'flying' || clickPhase === 'returning-right' ? 1 : 0,
+                opacity: hovered || clickPhase !== null ? 1 : 0,
                 transition: 'opacity 0.3s ease',
               }}
             >
