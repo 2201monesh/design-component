@@ -205,6 +205,20 @@ const FolderCardAnimation = () => {
             <p className='text-[11.5px] leading-relaxed text-black'>
               All contents herein are protected under internal security protocol 7-C. Any reproduction or distribution without written consent will result in immediate disciplinary action.
             </p>
+            {/* Mochi cat GIF — bottom right, white bg matches card */}
+            <img
+              src="https://media.tenor.com/TcMXxO_U0dgAAAAM/mochi-mochi-cat-peach.gif"
+              alt="mochi cat"
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                right: 0,
+                width: 76,
+                height: 76,
+                objectFit: 'cover',
+                borderBottomRightRadius: '0.75rem',
+              }}
+            />
           </div>
         </div>
 
