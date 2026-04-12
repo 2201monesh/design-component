@@ -116,7 +116,7 @@ const FolderCardAnimation = () => {
   const folderOpen = (hovered && !clickPhase) || clickPhase === 'returning-right' || clickPhase === 'returning-back'
 
   return (
-    <div className='w-screen h-screen flex items-center justify-center bg-neutral-300'>
+    <div className='w-screen h-screen flex items-center justify-center bg-neutral-200' style={{ fontFamily: 'var(--font-geist-mono)' }}>
       <style>{`
         @keyframes cardFullFlyIn {
           0% {
@@ -199,10 +199,10 @@ const FolderCardAnimation = () => {
             style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)', padding: '28px 24px', gap: '16px' }}
           >
             <p className='text-[11px] uppercase tracking-widest text-black font-semibold'>classified</p>
-            <p className='text-[11.5px] leading-relaxed text-black'>
+            <p className='text-[9.5px] leading-relaxed text-black'>
               This document contains sensitive operational data. Access is restricted to authorised personnel only. Unauthorised disclosure is strictly prohibited.
             </p>
-            <p className='text-[11.5px] leading-relaxed text-black'>
+            <p className='text-[9.5px] leading-relaxed text-black'>
               All contents herein are protected under internal security protocol 7-C. Any reproduction or distribution without written consent will result in immediate disciplinary action.
             </p>
             {/* Mochi cat GIF — bottom right, white bg matches card */}
@@ -217,6 +217,7 @@ const FolderCardAnimation = () => {
                 height: 76,
                 objectFit: 'cover',
                 borderBottomRightRadius: '0.75rem',
+                filter: 'brightness(1.18)',
               }}
             />
           </div>
