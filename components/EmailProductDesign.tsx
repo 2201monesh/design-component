@@ -41,8 +41,8 @@ const EmailProductDesign = () => {
               <LuTrash2 size={18} className='text-[#7e7e7e]' />
             </div>
             <div className='mt-5 w-full px-4 overflow-y-hidden'>
-              <TextTemplate heading="Arc Studio" date="Today" subHeading="Your website draft is ready" para="We've uploaded the first pass of the home page. Would love your feedback on the rem..." />
-              <TextTemplate heading="Stripe" date="Tomorrow" subHeading="Your payout has been processed" para="A transfer of $2,480.00 has been sent to your bank account. It should arrive within 1-2 bu..." />
+              <TextTemplate heading="Arc Studio" date="Today" subHeading="Your website draft is ready" para="We've uploaded the first pass of the home page. Would love your feedback on the remaining pag..." />
+              <TextTemplate heading="Stripe" date="Tomorrow" subHeading="Your payout has been processed" para="A transfer of $2,480.00 has been sent to your bank account. It should arrive within 1-2 buss..." />
               <TextTemplate heading="Notion" date="Yesterday" subHeading='You were mentioned in "Product 2026"' para="@emir added a comment asking for your input on Q2 priorities." />
               <TextTemplate heading="Github" date="Yesterday" subHeading="Security alert for one of your repositories" para="We detected  a dependency with a known vulnerability. Review the alert to keep you..." />
             </div>
@@ -66,7 +66,10 @@ const EmailProductDesign = () => {
             <div className='pl-8 w-full'>
               <p className='text-[14px] mb-4'>Hi Emir,</p>
               <p className='text-[14px] mb-4'>You were mentioned by Alex in the page Product 2026</p>
-              <div className='border-l-4 h-8 w-full italic text-[#7e7e7e] pl-2 flex items-center text-[14px] mb-4'>"Can you review the email service scope and confirm</div>
+              <div className='flex items-center mb-4'>
+                <div className='w-[3.5px] self-stretch bg-neutral-300 rounded-full mr-2 shrink-0'></div>
+                <p className='italic text-[#7e7e7e] text-[14px]'>"Can you review the email service scope and confirm</p>
+              </div>
               <p className='text-[14px] mb-4'>The comment is on the Q1 Deliverables section and may</p>
               <p className='text-[14px]'>Open the page to reply or resolve the comment.</p>
             </div>
