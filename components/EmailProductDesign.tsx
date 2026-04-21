@@ -72,13 +72,13 @@ export default EmailProductDesign;
 
 const TextTemplate = ({heading, date, subHeading, para}) => {
   return(
-    <div className='flex flex-col mb-4'>
-      <div className='flex items-center justify-between'>
-        <p className='text-[14px] font-semibold mb-0.5'>{heading}</p>
+    <div className='flex flex-col pb-4 mb-4 border-b border-[#f0f0f0] last:border-b-0 last:mb-0 last:pb-0'>
+      <div className='flex items-center justify-between mb-1'>
+        <p className='text-[13px] font-semibold text-[#111]'>{heading}</p>
         <p className='text-[11px] text-[#9a9a9a]'>{date}</p>
       </div>
-      <p className='text-[12px] font-semibold text-[#222]'>{subHeading}</p>
-      <p className='text-[12px] text-[#9a9a9a] leading-relaxed'>{para}</p>
+      <p className='text-[12px] font-medium text-[#333] mb-0.5'>{subHeading}</p>
+      <p className='text-[11px] text-[#9a9a9a] leading-relaxed'>{para}</p>
     </div>
   )
 }
