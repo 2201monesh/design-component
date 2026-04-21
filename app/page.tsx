@@ -30,8 +30,8 @@ export default function Home() {
       {/* <TodoListAnimation /> */}
       {/* <NavBarScrollAnimation /> */}
       {/* <AnimatedCards /> */}
-      {/* <EmailProductDesign /> */}
-      <FolderCardAnimation />
+      <EmailProductDesign />
+      {/* <FolderCardAnimation /> */}
     </div>
   );
 }
