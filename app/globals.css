@@ -26,7 +26,8 @@
   --font-mono: var(--font-geist-mono);
   --font-signika: var(--font-signika-google);
   --font-pixel: var(--font-geist-pixel);
-  --font-inter: var(--font-inter)
+  --font-inter: var(--font-inter);
+  --font-fredoka: var(--font-fredoka)
 }
 
 @media (prefers-color-scheme: dark) {

@@ -1,7 +1,5 @@
 import React from 'react'
 import { IoSearchOutline } from "react-icons/io5";
-import SomeoneImage from "../public/someone-text.png"
-import Image from 'next/image';
 import { LuInbox, LuSend, LuFile, LuCircleAlert, LuStar, LuTrash2 } from "react-icons/lu";
 import { RiNotionFill } from "react-icons/ri";
 
@@ -9,9 +7,20 @@ const EmailProductDesign = () => {
   return (
     <div className='bg-[#ebebeb] h-full w-full flex items-center justify-center font-[var(--font-inter)]'>
       <div className='w-180 h-110 bg-white rounded-tl-4xl'>
-        <div className='header w-full h-[18%] flex items-center pl-4'>
+        <div className='header w-full h-[18%] flex items-center pl-8'>
           {/* <p className='text-[40px] mr-6'>someone</p> */}
-          <Image src={SomeoneImage} alt='text' className='mr-5' />
+          <span
+            className='mr-6 mb-2 text-[38px] leading-none select-none'
+            style={{
+              fontFamily: 'var(--font-fredoka)',
+              fontWeight: 700,
+              color: '#ffffff',
+              WebkitTextStroke: '7px #FF4500',
+              paintOrder: 'stroke fill',
+            }}
+          >
+            someone
+          </span>
           <div className='h-9 rounded-full bg-[#f7f7f7] flex items-center p-[3px] mr-6'>
             <div className='bg-white h-full px-5 rounded-full flex items-center justify-center text-[13px] font-medium tracking-tight'>Email</div>
             <div className='px-5 flex items-center justify-center text-[13px] text-[#9a9a9a]'>Profile</div>
