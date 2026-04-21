@@ -1,5 +1,7 @@
 'use client'
+import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
+import DiscordImage from "../public/Boat.png"
 
 type ClickPhase = null | 'flying' | 'center' | 'returning-flip' | 'returning-pre-right' | 'returning-right' | 'returning-back'
 
@@ -206,9 +208,9 @@ const FolderCardAnimation = () => {
               All contents herein are protected under internal security protocol 7-C. Any reproduction or distribution without written consent will result in immediate disciplinary action.
             </p>
             {/* Mochi cat GIF — bottom right, white bg matches card */}
-            <img
-              src="https://media.tenor.com/TcMXxO_U0dgAAAAM/mochi-mochi-cat-peach.gif"
-              alt="mochi cat"
+            {/* <img
+              src="https://png.pngtree.com/png-vector/20240712/ourmid/pngtree-yellow-star-sticker-for-kids-activities-png-image_13018270.png"
+              alt="yellow star sticker"
               style={{
                 position: 'absolute',
                 bottom: 0,
@@ -219,7 +221,17 @@ const FolderCardAnimation = () => {
                 borderBottomRightRadius: '0.75rem',
                 filter: 'brightness(1.18)',
               }}
-            />
+            /> */}
+            <Image style={{
+                position: 'absolute',
+                bottom: 6,
+                right: 3,
+                width: 46,
+                height: 46,
+                objectFit: 'cover',
+                borderBottomRightRadius: '0.75rem',
+                // filter: 'brightness(1.18)',
+              }} src={DiscordImage} alt="Discord" width={20} height={20} className='mr-2' />
           </div>
         </div>
 
