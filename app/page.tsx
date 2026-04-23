@@ -12,6 +12,7 @@ import NavBarScrollAnimation from "@/components/NavBarScrollAnimation";
 import ScratchCard from "@/components/ScratchCard";
 import SelectCardsAnimation from "@/components/SelectCardsAnimation";
 import SpringCards from "@/components/SpringCards";
+import TableComponent from "@/components/TableComponent";
 import TodoListAnimation from "@/components/TodoListAnimation";
 
 export default function Home() {
@@ -30,8 +31,9 @@ export default function Home() {
       {/* <TodoListAnimation /> */}
       {/* <NavBarScrollAnimation /> */}
       {/* <AnimatedCards /> */}
-      <EmailProductDesign />
+      {/* <EmailProductDesign /> */}
       {/* <FolderCardAnimation /> */}
+      <TableComponent />
     </div>
   );
 }
