@@ -14,12 +14,12 @@ const TableComponent = () => {
                     <input type="text" className='outline-none w-[85%] flex items-center' placeholder='Search' />
                 </div>
                 <div className='flex items-center'>
-                    <div className='flex items-center border px-1.5 py-1 rounded-md border-[#e0e0e0] mr-2'>
+                    <div className='flex items-center border px-1.5 py-1 rounded-md border-[#e0e0e0] mr-2 cursor-pointer'>
                         <LuLink className='mr-1.5 text-[#979797]' size={12} />
                         <p className='text-xs mr-1 text-neutral-700'>URL type</p>
                         <IoIosArrowDown className='text-[#979797]' size={14} />
                     </div>
-                    <div className='border rounded-md border-[#e0e0e0] px-1.5 py-1'>
+                    <div className='border rounded-md border-[#e0e0e0] px-1.5 py-1 cursor-pointer'>
                         <FiUpload className='text-neutral-700' size={14} />
                     </div>
                 </div>
