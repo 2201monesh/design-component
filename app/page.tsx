@@ -1,4 +1,5 @@
 import AnimatedCards from "@/components/AnimatedCards";
+import BookCardAnimation from "@/components/BookCardAnimation";
 import DiscordAnimation from "@/components/DiscordAnimation";
 import DraggableChain from "@/components/DraggableChain";
 import EmailProductDesign from "@/components/EmailProductDesign";
@@ -33,7 +34,8 @@ export default function Home() {
       {/* <AnimatedCards /> */}
       {/* <EmailProductDesign /> */}
       {/* <FolderCardAnimation /> */}
-      <TableComponent />
+      {/* <TableComponent /> */}
+      <BookCardAnimation />
     </div>
   );
 }
