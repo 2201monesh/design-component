@@ -27,7 +27,7 @@ const TwitterTabsSwitchAnimation = () => {
                     {active === i && (
                       <motion.span
                         key='arrow'
-                        initial={{ x: 14, opacity: 0 }}
+                        initial={{ x: -14, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: -14, opacity: 0 }}
                         transition={{ duration: 0.2, ease: 'linear' }}
