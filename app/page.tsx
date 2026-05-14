@@ -15,6 +15,7 @@ import SelectCardsAnimation from "@/components/SelectCardsAnimation";
 import SpringCards from "@/components/SpringCards";
 import TableComponent from "@/components/TableComponent";
 import TodoListAnimation from "@/components/TodoListAnimation";
+import TwitterTabsSwitchAnimation from "@/components/TwitterTabsSwitchAnimation";
 
 export default function Home() {
   return (
@@ -34,8 +35,9 @@ export default function Home() {
       {/* <AnimatedCards /> */}
       {/* <EmailProductDesign /> */}
       {/* <FolderCardAnimation /> */}
-      <TableComponent />
+      {/* <TableComponent /> */}
       {/* <BookCardAnimation /> */}
+      <TwitterTabsSwitchAnimation />
     </div>
   );
 }
