@@ -8,7 +8,7 @@ const TableComponent = () => {
   return (
     <div className='w-full h-full flex items-center justify-center'>
         <div className='border w-[70%] h-[85%] rounded-lg border-[#e0e0e0]'>
-            <div className='w-full h-[7%] border-b border-[#e0e0e0] flex items-center justify-between px-2.5'>
+            <div className='w-full h-[7%] flex items-center justify-between px-2.5'>
                 <div className='border outline-none rounded-md border-[#e0e0e0] h-[25px] text-sm w-[200px] flex items-center'>
                     <IoSearchOutline className='text-[#888888] w-[15%] mb-0.5' />
                     <input type="text" className='outline-none w-[85%] flex items-center' placeholder='Search' />
@@ -23,6 +23,17 @@ const TableComponent = () => {
                         <FiUpload className='text-neutral-700' size={14} />
                     </div>
                 </div>
+            </div>
+            <div className='h-10 border-b border-[#e0e0e0] bg-[#f8f8f8] table-col-div flex items-center px-3'>
+                <span className='text-xs text-[#888888] w-8 shrink-0'>#</span>
+                <span className='text-xs text-[#888888] flex-[3]'>URLs</span>
+                <span className='text-xs text-[#888888] flex-1'>URL Type</span>
+                <span className='text-xs text-[#888888] flex-1'>Mentioned</span>
+                <span className='text-xs text-[#888888] flex-1'>Used Total</span>
+                <span className='text-xs text-[#888888] flex-1'>First Seen</span>
+                <span className='text-xs text-[#888888] flex-1'>Last Seen</span>
+                <span className='text-xs text-[#888888] flex-1'>Updated</span>
+                <span className='text-xs text-[#888888] flex-1'>Total</span>
             </div>
         </div>
     </div>

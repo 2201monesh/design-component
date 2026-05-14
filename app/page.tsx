@@ -34,8 +34,8 @@ export default function Home() {
       {/* <AnimatedCards /> */}
       {/* <EmailProductDesign /> */}
       {/* <FolderCardAnimation /> */}
-      {/* <TableComponent /> */}
-      <BookCardAnimation />
+      <TableComponent />
+      {/* <BookCardAnimation /> */}
     </div>
   );
 }
