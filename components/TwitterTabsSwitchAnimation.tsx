@@ -5,6 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { IoIosArrowDown } from 'react-icons/io'
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
+import { IoChatbubbleOutline } from "react-icons/io5";
+import { LiaRetweetSolid } from "react-icons/lia";
+import { CiHeart } from "react-icons/ci";
+import { SiSimpleanalytics } from "react-icons/si";
+import { IoBookmark } from "react-icons/io5";
+import { RxUpload } from "react-icons/rx";
 
 const tabs = ['Bookmarks', 'Videos', 'Articles', 'Likes']
 
@@ -13,7 +19,7 @@ const TwitterTabsSwitchAnimation = () => {
 
   return (
     <div className='w-full h-full flex items-center justify-center'>
-      <div className='flex flex-col h-[300px]'>
+      <div className='flex flex-col h-[400px]'>
         <div className='flex items-center justify-between w-[350px]'>
           {tabs.map((tab, i) => (
             <button
@@ -81,6 +87,31 @@ const TwitterTabsSwitchAnimation = () => {
                   <p className='text-sm leading-5 tracking-normal'>Framer Motion makes UI animations feel effortless - just describe the state and let it handle the rest.</p>
                   <p className='text-sm leading-5 tracking-normal mt-3'>The tab switcher with the sliding underline and arrow reveal is a great example of how small motion details elevate the whole experience.</p>
                   <p className='text-sm leading-5 tracking-normal mt-3'>Subtle is always better.</p>
+                  <p className='text-sm text-yellow-400 mt-3'>show more</p>
+                  <div className='flex items-center justify-between mt-3 text-neutral-500'>
+                    <div className='flex items-center gap-1'>
+                      <IoChatbubbleOutline />
+                      <span className='text-xs'>8</span>
+                    </div>
+                    <div className='flex items-center gap-1'>
+                      <LiaRetweetSolid size={19} />
+                      <span className='text-xs'>7</span>
+                    </div>
+                    <div className='flex items-center gap-1'>
+                      <CiHeart size={19} />
+                      <span className='text-xs'>267</span>
+                    </div>
+                    <div className='flex items-center gap-1'>
+                      <SiSimpleanalytics size={12} />
+                      <span className='text-xs'>12K</span>
+                    </div>
+                    <div>
+                      <IoBookmark className='text-blue-500' />
+                    </div>
+                    <div>
+                      <RxUpload />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
