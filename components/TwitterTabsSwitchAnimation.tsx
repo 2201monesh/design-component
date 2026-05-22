@@ -4,13 +4,7 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { IoIosArrowDown } from 'react-icons/io'
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
-import { RiVerifiedBadgeFill } from "react-icons/ri";
-import { IoChatbubbleOutline } from "react-icons/io5";
-import { LiaRetweetSolid } from "react-icons/lia";
-import { CiHeart } from "react-icons/ci";
-import { SiSimpleanalytics } from "react-icons/si";
-import { IoBookmark } from "react-icons/io5";
-import { RxUpload } from "react-icons/rx";
+import { IconMessage, IconRepeat, IconHeart, IconChartBar, IconBookmark, IconUpload, IconRosetteDiscountCheckFilled } from "@tabler/icons-react";
 
 const tabs = ['Bookmarks', 'Videos', 'Articles', 'Likes']
 
@@ -40,9 +34,9 @@ const TwitterTabsSwitchAnimation = () => {
                       {active === i && (
                         <motion.span
                           key='arrow'
-                          initial={{ x: -14, opacity: 0 }}
-                          animate={{ x: 0, opacity: 1 }}
-                          exit={{ x: -14, opacity: 0 }}
+                          initial={{ x: -14, opacity: 0, scale: 0 }}
+                          animate={{ x: 0, opacity: 1, scale: 1 }}
+                          exit={{ x: -14, opacity: 0, scale: 0 }}
                           transition={{ duration: 0.2, ease: 'linear' }}
                           className='flex items-center shrink-0'
                         >
@@ -77,39 +71,39 @@ const TwitterTabsSwitchAnimation = () => {
                   <div className='flex justify-between items-center'>
                     <div className='flex items-center'>
                       <p className='text-sm mr-1'>Monesh Goyal</p>
-                      <RiVerifiedBadgeFill className='mr-1 text-blue-500' />
+                      <IconRosetteDiscountCheckFilled size={15} className='mr-1 text-blue-500' />
                       <p className='text-neutral-500 text-xs mr-2'>@moneshgoyal</p>
                       <p className='text-xs text-neutral-500'>5h</p>
                     </div>
                     <HiOutlineDotsHorizontal className='cursor-pointer' />
                   </div>
-                  <p className='text-[12px] text-neutral-500 mb-2'>Replying to <span className='text-yellow-400'>@tonystark</span></p>
+                  <p className='text-[12px] text-neutral-500 mb-2'>Replying to <span className='text-yellow-400'>@benjitaylor</span></p>
                   <p className='text-sm leading-5 tracking-normal'>Framer Motion makes UI animations feel effortless - just describe the state and let it handle the rest.</p>
                   <p className='text-sm leading-5 tracking-normal mt-3'>The tab switcher with the sliding underline and arrow reveal is a great example of how small motion details elevate the whole experience.</p>
                   <p className='text-sm leading-5 tracking-normal mt-3'>Subtle is always better.</p>
                   <p className='text-sm text-yellow-400 mt-3'>show more</p>
                   <div className='flex items-center justify-between mt-3 text-neutral-500'>
                     <div className='flex items-center gap-1'>
-                      <IoChatbubbleOutline />
+                      <IconMessage size={16} stroke={1.5} />
                       <span className='text-xs'>8</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <LiaRetweetSolid size={19} />
+                      <IconRepeat size={16} stroke={1.5} />
                       <span className='text-xs'>7</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <CiHeart size={19} />
+                      <IconHeart size={16} stroke={1.5} />
                       <span className='text-xs'>267</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <SiSimpleanalytics size={12} />
+                      <IconChartBar size={16} stroke={1.5} />
                       <span className='text-xs'>12K</span>
                     </div>
                     <div>
-                      <IoBookmark className='text-blue-500' />
+                      <IconBookmark size={16} stroke={1.5} className='text-blue-500' fill='currentColor' />
                     </div>
                     <div>
-                      <RxUpload />
+                      <IconUpload size={16} stroke={1.5} />
                     </div>
                   </div>
                 </div>
@@ -123,7 +117,7 @@ const TwitterTabsSwitchAnimation = () => {
                   <div className='flex justify-between items-center'>
                     <div className='flex items-center'>
                       <p className='text-sm mr-1'>Leo Topez</p>
-                      <RiVerifiedBadgeFill className='mr-1 text-blue-500' />
+                      <IconRosetteDiscountCheckFilled size={15} className='mr-1 text-blue-500' />
                       <p className='text-neutral-500 text-xs mr-2'>@leotopez</p>
                       <p className='text-xs text-neutral-500'>5h</p>
                     </div>
