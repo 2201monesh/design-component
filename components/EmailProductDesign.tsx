@@ -82,7 +82,7 @@ const EmailProductDesign = () => {
 
 export default EmailProductDesign;
 
-const TextTemplate = ({heading, date, subHeading, para}) => {
+const TextTemplate = ({ heading, date, subHeading, para }: { heading: string; date: string; subHeading: string; para: string }) => {
   return(
     <div className='flex flex-col pb-4 mb-4 border-b border-[#f0f0f0] last:border-b-0 last:mb-0 last:pb-0'>
       <div className='flex items-center justify-between mb-1'>

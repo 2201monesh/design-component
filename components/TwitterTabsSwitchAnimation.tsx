@@ -20,7 +20,7 @@ const TwitterTabsSwitchAnimation = () => {
   return (
     <div className='w-full h-full flex items-center justify-center'>
       <div className='flex flex-col h-[400px]'>
-        <div className='flex items-center justify-between w-[350px]'>
+        <div className='flex items-center justify-start w-[350px]'>
           {tabs.map((tab, i) => (
             <button
               key={tab}
