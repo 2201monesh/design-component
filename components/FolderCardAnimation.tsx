@@ -207,21 +207,6 @@ const FolderCardAnimation = () => {
             <p className='text-[9.5px] leading-relaxed text-black'>
               All contents herein are protected under internal security protocol 7-C. Any reproduction or distribution without written consent will result in immediate disciplinary action.
             </p>
-            {/* Mochi cat GIF — bottom right, white bg matches card */}
-            {/* <img
-              src="https://png.pngtree.com/png-vector/20240712/ourmid/pngtree-yellow-star-sticker-for-kids-activities-png-image_13018270.png"
-              alt="yellow star sticker"
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                right: 0,
-                width: 76,
-                height: 76,
-                objectFit: 'cover',
-                borderBottomRightRadius: '0.75rem',
-                filter: 'brightness(1.18)',
-              }}
-            /> */}
             <Image style={{
                 position: 'absolute',
                 bottom: 6,
