@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { IoIosArrowDown } from 'react-icons/io'
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
@@ -30,7 +30,20 @@ const TwitterTabsSwitchAnimation = () => {
                     transition={{ duration: 0.2, ease: 'linear' }}
                     className='overflow-hidden flex items-center'
                   >
-                    <IoIosArrowDown size={13} className='shrink-0' />
+                    <AnimatePresence>
+                      {active === i && (
+                        <motion.span
+                          key='arrow'
+                          initial={{ x: -14, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          exit={{ x: -14, opacity: 0 }}
+                          transition={{ duration: 0.2, ease: 'linear' }}
+                          className='flex items-center shrink-0'
+                        >
+                          <IoIosArrowDown size={13} />
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
                   </motion.span>
                 )}
                 {active === i && (
