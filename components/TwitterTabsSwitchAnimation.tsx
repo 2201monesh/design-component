@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { IoIosArrowDown } from 'react-icons/io'
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
@@ -14,33 +14,24 @@ const TwitterTabsSwitchAnimation = () => {
   return (
     <div className='w-full h-full flex items-center justify-center'>
       <div className='flex flex-col'>
-        <div className='flex items-center'>
+        <div className='flex items-center justify-between w-[350px]'>
           {tabs.map((tab, i) => (
             <button
               key={tab}
               onClick={() => setActive(i)}
-              className={`relative px-6 py-3 text-sm font-medium transition-colors duration-200 cursor-pointer
+              className={`relative py-3 px-2 text-sm font-medium transition-colors duration-200 cursor-pointer
                 ${active === i ? 'text-neutral-900' : 'text-neutral-400 hover:text-neutral-600'}`}
             >
               <span className='relative flex items-center gap-1'>
                 {tab}
                 {tab === 'Bookmarks' && (
-                  <span className='w-[13px] overflow-hidden flex items-center'>
-                    <AnimatePresence>
-                      {active === i && (
-                        <motion.span
-                          key='arrow'
-                          initial={{ x: -14, opacity: 0 }}
-                          animate={{ x: 0, opacity: 1 }}
-                          exit={{ x: -14, opacity: 0 }}
-                          transition={{ duration: 0.2, ease: 'linear' }}
-                          className='flex items-center'
-                        >
-                          <IoIosArrowDown size={13} />
-                        </motion.span>
-                      )}
-                    </AnimatePresence>
-                  </span>
+                  <motion.span
+                    animate={{ width: active === i ? 13 : 0 }}
+                    transition={{ duration: 0.2, ease: 'linear' }}
+                    className='overflow-hidden flex items-center'
+                  >
+                    <IoIosArrowDown size={13} className='shrink-0' />
+                  </motion.span>
                 )}
                 {active === i && (
                   <motion.span
