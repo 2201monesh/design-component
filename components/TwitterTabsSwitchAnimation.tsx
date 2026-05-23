@@ -49,7 +49,7 @@ const TwitterTabsSwitchAnimation = () => {
                 {active === i && (
                   <motion.span
                     layoutId='underline'
-                    className='absolute -bottom-1 left-0 w-full h-[2px] bg-neutral-900 rounded-full'
+                    className='absolute -bottom-1 left-0 w-full h-[2px] bg-yellow-400 rounded-full'
                     transition={{ type: 'tween', ease: 'easeOut', duration: 0.2 }}
                   />
                 )}
@@ -81,29 +81,29 @@ const TwitterTabsSwitchAnimation = () => {
                   <p className='text-sm leading-5 tracking-normal'>Framer Motion makes UI animations feel effortless - just describe the state and let it handle the rest.</p>
                   <p className='text-sm leading-5 tracking-normal mt-3'>The tab switcher with the sliding underline and arrow reveal is a great example of how small motion details elevate the whole experience.</p>
                   <p className='text-sm leading-5 tracking-normal mt-3'>Subtle is always better.</p>
-                  <p className='text-sm text-yellow-400 mt-3'>show more</p>
+                  <p className='text-sm text-yellow-400 mt-3 cursor-pointer'>show more</p>
                   <div className='flex items-center justify-between mt-3 text-neutral-500'>
-                    <div className='flex items-center gap-1'>
+                    <div className='flex items-center gap-1 cursor-pointer'>
                       <IconMessage size={16} stroke={1.5} />
                       <span className='text-xs'>8</span>
                     </div>
-                    <div className='flex items-center gap-1'>
+                    <div className='flex items-center gap-1 cursor-pointer'>
                       <IconRepeat size={16} stroke={1.5} />
                       <span className='text-xs'>7</span>
                     </div>
-                    <div className='flex items-center gap-1'>
+                    <div className='flex items-center gap-1 cursor-pointer'>
                       <IconHeart size={16} stroke={1.5} />
                       <span className='text-xs'>267</span>
                     </div>
-                    <div className='flex items-center gap-1'>
+                    <div className='flex items-center gap-1 cursor-pointer'>
                       <IconChartBar size={16} stroke={1.5} />
                       <span className='text-xs'>12K</span>
                     </div>
                     <div>
-                      <IconBookmark size={16} stroke={1.5} className='text-blue-500' fill='currentColor' />
+                      <IconBookmark size={16} stroke={1.5} className='text-blue-500 cursor-pointer' fill='currentColor' />
                     </div>
                     <div>
-                      <IconUpload size={16} stroke={1.5} />
+                      <IconUpload size={16} stroke={1.5} className='cursor-pointer' />
                     </div>
                   </div>
                 </div>
@@ -123,14 +123,58 @@ const TwitterTabsSwitchAnimation = () => {
                     </div>
                     <HiOutlineDotsHorizontal className='cursor-pointer' />
                   </div>
-                  <p className='text-[12px] text-neutral-500 mb-2'>Replying to <span className='text-yellow-400'>@rohitk23</span></p>
+                  <p className='text-[12px] text-neutral-500 mb-2'>Replying to <span className='text-yellow-400'>@yashsehgaldev</span></p>
                   <p className='text-sm leading-5 tracking-normal'>Finally shipped the 60fps scroll linked scrubber. Here is a 12s screen capture - no cuts, no speed ramp - just the interaction.</p>
                   <p className='text-sm leading-5 tracking-normal mt-3 text-blue-500'>animations.dev/clips/transitions-v1</p>
                 </div>
               </div>
             </div>
             {/* Articles panel (empty) */}
-            <div className='w-[350px] shrink-0' />
+            <div className='w-[350px] shrink-0 pt-6'>
+              <div className='flex items-start'>
+                <img src='https://i.pinimg.com/1200x/25/ae/cb/25aecb24e0da22d3e1f07a7ed8f8d5f9.jpg' alt='moneshgoyal' className='w-10 h-10 rounded-full mr-4 shrink-0 object-cover bg-neutral-300' />
+                <div className='flex-1'>
+                  <div className='flex justify-between items-center'>
+                    <div className='flex items-center'>
+                      <p className='text-sm mr-1'>Suri Yaku</p>
+                      <IconRosetteDiscountCheckFilled size={15} className='mr-1 text-blue-500' />
+                      <p className='text-neutral-500 text-xs mr-2'>@yakusuri</p>
+                      <p className='text-xs text-neutral-500'>7h</p>
+                    </div>
+                    <HiOutlineDotsHorizontal className='cursor-pointer' />
+                  </div>
+                  {/* <p className='text-[12px] text-neutral-500 mb-2'>Replying to <span className='text-yellow-400'>@benjitaylor</span></p> */}
+                  <p className='text-sm leading-5 tracking-normal mt-6'>Framer Motion makes UI animations feel effortless - just describe the state and let it handle the rest.</p>
+                  <p className='text-sm leading-5 tracking-normal mt-3'>The tab switcher with the sliding underline and arrow reveal is a great example of how small motion details elevate the whole experience.</p>
+                  <p className='text-sm leading-5 tracking-normal mt-3'>Subtle is always better.</p>
+                  <p className='text-sm text-yellow-400 mt-3 cursor-pointer'>show more</p>
+                  <div className='flex items-center justify-between mt-3 text-neutral-500'>
+                    <div className='flex items-center gap-1 cursor-pointer'>
+                      <IconMessage size={16} stroke={1.5} />
+                      <span className='text-xs'>16</span>
+                    </div>
+                    <div className='flex items-center gap-1 cursor-pointer'>
+                      <IconRepeat size={16} stroke={1.5} />
+                      <span className='text-xs'>77</span>
+                    </div>
+                    <div className='flex items-center gap-1 cursor-pointer'>
+                      <IconHeart size={16} stroke={1.5} />
+                      <span className='text-xs'>895</span>
+                    </div>
+                    <div className='flex items-center gap-1 cursor-pointer'>
+                      <IconChartBar size={16} stroke={1.5} />
+                      <span className='text-xs'>47K</span>
+                    </div>
+                    <div>
+                      <IconBookmark size={16} stroke={1.5} className='text-blue-500 cursor-pointer' fill='currentColor' />
+                    </div>
+                    <div>
+                      <IconUpload size={16} stroke={1.5} className='cursor-pointer' />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             {/* Likes panel (empty) */}
             <div className='w-[350px] shrink-0' />
           </motion.div>
