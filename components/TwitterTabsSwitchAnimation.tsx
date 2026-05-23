@@ -143,11 +143,14 @@ const TwitterTabsSwitchAnimation = () => {
                     </div>
                     <HiOutlineDotsHorizontal className='cursor-pointer' />
                   </div>
-                  {/* <p className='text-[12px] text-neutral-500 mb-2'>Replying to <span className='text-yellow-400'>@benjitaylor</span></p> */}
-                  <p className='text-sm leading-5 tracking-normal mt-6'>Framer Motion makes UI animations feel effortless - just describe the state and let it handle the rest.</p>
-                  <p className='text-sm leading-5 tracking-normal mt-3'>The tab switcher with the sliding underline and arrow reveal is a great example of how small motion details elevate the whole experience.</p>
-                  <p className='text-sm leading-5 tracking-normal mt-3'>Subtle is always better.</p>
-                  <p className='text-sm text-yellow-400 mt-3 cursor-pointer'>show more</p>
+                  <p className='text-sm leading-5 tracking-normal mt-4'>Just published a deep dive on design systems — why most teams build them too early, and what to do instead.</p>
+                  <div className='mt-3 rounded-xl border border-neutral-200 overflow-hidden'>
+                    <img src='https://i.pinimg.com/736x/4b/82/a1/4b82a1019e25d32a95210ee208429fe6.jpg' alt='article preview' className='w-full h-28 object-cover' />
+                    <div className='px-3 py-2'>
+                      <p className='text-xs font-semibold text-neutral-800 leading-4'>Design Systems Are Overrated (Until They&apos;re Not)</p>
+                      <p className='text-[11px] text-neutral-400 mt-0.5'>yakusuri.dev · 6 min read</p>
+                    </div>
+                  </div>
                   <div className='flex items-center justify-between mt-3 text-neutral-500'>
                     <div className='flex items-center gap-1 cursor-pointer'>
                       <IconMessage size={16} stroke={1.5} />
