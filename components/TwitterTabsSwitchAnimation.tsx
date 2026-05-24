@@ -8,8 +8,8 @@ import { IconMessage, IconRepeat, IconHeart, IconChartBar, IconBookmark, IconUpl
 
 const tabs = ['Bookmarks', 'Videos', 'Articles', 'Likes']
 
-const LikeButton = ({ count }: { count: string }) => {
-  const [liked, setLiked] = useState(false)
+const LikeButton = ({ count, initialLiked = false }: { count: string; initialLiked?: boolean }) => {
+  const [liked, setLiked] = useState(initialLiked)
   const [clickKey, setClickKey] = useState(0)
   const [likeCount, setLikeCount] = useState(parseInt(count, 10))
 
@@ -257,8 +257,44 @@ const TwitterTabsSwitchAnimation = () => {
                 </div>
               </div>
             </div>
-            {/* Likes panel (empty) */}
-            <div className='w-[350px] shrink-0' />
+            {/* Likes panel */}
+            <div className='w-[350px] shrink-0 pt-6'>
+              <div className='flex items-start'>
+                <img src='https://i.pinimg.com/736x/a5/49/93/a54993c4f1a36b5e077e6c477c8fe3b3.jpg' alt='karawilson' className='w-10 h-10 rounded-full mr-4 shrink-0 object-cover bg-neutral-300' />
+                <div className='flex-1'>
+                  <div className='flex justify-between items-center'>
+                    <div className='flex items-center'>
+                      <p className='text-sm mr-1'>Kara Wilson</p>
+                      <IconRosetteDiscountCheckFilled size={15} className='mr-1 text-yellow-400' />
+                      <p className='text-neutral-500 text-xs mr-2'>@karawilson</p>
+                      <p className='text-xs text-neutral-500'>2h</p>
+                    </div>
+                    <HiOutlineDotsHorizontal className='cursor-pointer' />
+                  </div>
+                  <p className='text-sm leading-5 tracking-normal mt-3'>CSS transitions are underrated. A 150ms ease-out on opacity and transform is the difference between an app that feels cheap and one that feels crafted.</p>
+                  <p className='text-sm leading-5 tracking-normal mt-3'>You don&apos;t need a library. You need taste.</p>
+                  <div className='flex items-center justify-between mt-3 text-neutral-500'>
+                    <div className='flex items-center gap-1 cursor-pointer'>
+                      <IconMessage size={16} stroke={1.5} />
+                      <span className='text-xs'>31</span>
+                    </div>
+                    <div className='flex items-center gap-1 cursor-pointer'>
+                      <IconRepeat size={16} stroke={1.5} />
+                      <span className='text-xs'>118</span>
+                    </div>
+                    <LikeButton count='1403' initialLiked={true} />
+                    <div className='flex items-center gap-1 cursor-pointer'>
+                      <IconChartBar size={16} stroke={1.5} />
+                      <span className='text-xs'>52K</span>
+                    </div>
+                    <BookmarkButton initialBookmarked={false} />
+                    <div>
+                      <IconUpload size={16} stroke={1.5} className='cursor-pointer' />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
