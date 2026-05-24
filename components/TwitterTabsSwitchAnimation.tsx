@@ -8,6 +8,44 @@ import { IconMessage, IconRepeat, IconHeart, IconChartBar, IconBookmark, IconUpl
 
 const tabs = ['Bookmarks', 'Videos', 'Articles', 'Likes']
 
+const LikeButton = ({ count }: { count: string }) => {
+  const [liked, setLiked] = useState(false)
+  const [clickKey, setClickKey] = useState(0)
+  const [likeCount, setLikeCount] = useState(parseInt(count, 10))
+
+  const handleClick = () => {
+    const next = !liked
+    setLiked(next)
+    setLikeCount(next ? likeCount + 1 : likeCount - 1)
+    setClickKey(k => k + 1)
+  }
+
+  return (
+    <div className='flex items-center gap-1 cursor-pointer' onClick={handleClick}>
+      <div className='relative flex items-center justify-center'>
+        {liked && (
+          <motion.div
+            key={`burst-${clickKey}`}
+            initial={{ scale: 0.5, opacity: 0.6 }}
+            animate={{ scale: 2.8, opacity: 0 }}
+            transition={{ duration: 0.45, ease: 'easeOut' }}
+            className='absolute w-4 h-4 rounded-full bg-pink-400 pointer-events-none'
+          />
+        )}
+        <motion.div
+          key={`heart-${clickKey}`}
+          animate={liked ? { scale: [1, 1.5, 0.85, 1.1, 1] } : { scale: [1, 0.8, 1] }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+          className={liked ? 'text-pink-500' : 'text-neutral-500'}
+        >
+          <IconHeart size={16} stroke={1.5} fill={liked ? 'currentColor' : 'none'} />
+        </motion.div>
+      </div>
+      <span className={`text-xs ${liked ? 'text-pink-500' : 'text-neutral-500'}`}>{likeCount}</span>
+    </div>
+  )
+}
+
 const TwitterTabsSwitchAnimation = () => {
   const [active, setActive] = useState(0)
 
@@ -91,10 +129,7 @@ const TwitterTabsSwitchAnimation = () => {
                       <IconRepeat size={16} stroke={1.5} />
                       <span className='text-xs'>7</span>
                     </div>
-                    <div className='flex items-center gap-1 cursor-pointer'>
-                      <IconHeart size={16} stroke={1.5} />
-                      <span className='text-xs'>267</span>
-                    </div>
+                    <LikeButton count='267' />
                     <div className='flex items-center gap-1 cursor-pointer'>
                       <IconChartBar size={16} stroke={1.5} />
                       <span className='text-xs'>12K</span>
@@ -126,6 +161,27 @@ const TwitterTabsSwitchAnimation = () => {
                   <p className='text-[12px] text-neutral-500 mb-2'>Replying to <span className='text-yellow-400'>@yashsehgaldev</span></p>
                   <p className='text-sm leading-5 tracking-normal'>Finally shipped the 60fps scroll linked scrubber. Here is a 12s screen capture - no cuts, no speed ramp - just the interaction.</p>
                   <p className='text-sm leading-5 tracking-normal mt-3 text-blue-500'>animations.dev/clips/transitions-v1</p>
+                  <div className='flex items-center justify-between mt-3 text-neutral-500'>
+                    <div className='flex items-center gap-1 cursor-pointer'>
+                      <IconMessage size={16} stroke={1.5} />
+                      <span className='text-xs'>14</span>
+                    </div>
+                    <div className='flex items-center gap-1 cursor-pointer'>
+                      <IconRepeat size={16} stroke={1.5} />
+                      <span className='text-xs'>49</span>
+                    </div>
+                    <LikeButton count='712' />
+                    <div className='flex items-center gap-1 cursor-pointer'>
+                      <IconChartBar size={16} stroke={1.5} />
+                      <span className='text-xs'>36K</span>
+                    </div>
+                    <div>
+                      <IconBookmark size={16} stroke={1.5} className='cursor-pointer' />
+                    </div>
+                    <div>
+                      <IconUpload size={16} stroke={1.5} className='cursor-pointer' />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -160,10 +216,7 @@ const TwitterTabsSwitchAnimation = () => {
                       <IconRepeat size={16} stroke={1.5} />
                       <span className='text-xs'>77</span>
                     </div>
-                    <div className='flex items-center gap-1 cursor-pointer'>
-                      <IconHeart size={16} stroke={1.5} />
-                      <span className='text-xs'>895</span>
-                    </div>
+                    <LikeButton count='895' />
                     <div className='flex items-center gap-1 cursor-pointer'>
                       <IconChartBar size={16} stroke={1.5} />
                       <span className='text-xs'>47K</span>
