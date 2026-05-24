@@ -12,6 +12,8 @@ const LikeButton = ({ count, initialLiked = false }: { count: string; initialLik
   const [liked, setLiked] = useState(initialLiked)
   const [clickKey, setClickKey] = useState(0)
   const [likeCount, setLikeCount] = useState(parseInt(count, 10))
+  const [isHovered, setIsHovered] = useState(false)
+  const [isPressed, setIsPressed] = useState(false)
 
   const handleClick = () => {
     const next = !liked
@@ -22,21 +24,26 @@ const LikeButton = ({ count, initialLiked = false }: { count: string; initialLik
 
   return (
     <div className='flex items-center gap-1 cursor-pointer' onClick={handleClick}>
-      <div className='relative flex items-center justify-center'>
-        {liked && (
-          <motion.div
-            key={`burst-${clickKey}`}
-            initial={{ scale: 0.5, opacity: 0.6 }}
-            animate={{ scale: 2.8, opacity: 0 }}
-            transition={{ duration: 0.45, ease: 'easeOut' }}
-            className='absolute w-4 h-4 rounded-full bg-pink-400 pointer-events-none'
-          />
-        )}
+      <div
+        className='relative flex items-center justify-center'
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => { setIsHovered(false); setIsPressed(false) }}
+        onMouseDown={() => setIsPressed(true)}
+        onMouseUp={() => setIsPressed(false)}
+      >
+        <motion.div
+          animate={{
+            opacity: isHovered ? 1 : 0,
+            backgroundColor: isPressed ? 'rgba(236,72,153,0.22)' : 'rgba(236,72,153,0.12)',
+          }}
+          transition={{ duration: 0.08 }}
+          className='absolute w-7 h-7 rounded-full pointer-events-none'
+        />
         <motion.div
           key={`heart-${clickKey}`}
           animate={liked ? { scale: [1, 1.5, 0.85, 1.1, 1] } : { scale: [1, 0.8, 1] }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className={liked ? 'text-pink-500' : 'text-neutral-500'}
+          className={liked ? 'text-pink-500' : isHovered ? 'text-pink-400' : 'text-neutral-500'}
         >
           <IconHeart size={16} stroke={1.5} fill={liked ? 'currentColor' : 'none'} />
         </motion.div>
@@ -49,6 +56,8 @@ const LikeButton = ({ count, initialLiked = false }: { count: string; initialLik
 const BookmarkButton = ({ initialBookmarked = false }: { initialBookmarked?: boolean }) => {
   const [bookmarked, setBookmarked] = useState(initialBookmarked)
   const [clickKey, setClickKey] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+  const [isPressed, setIsPressed] = useState(false)
 
   const handleClick = () => {
     setBookmarked(prev => !prev)
@@ -56,21 +65,27 @@ const BookmarkButton = ({ initialBookmarked = false }: { initialBookmarked?: boo
   }
 
   return (
-    <div className='relative flex items-center justify-center cursor-pointer' onClick={handleClick}>
-      {bookmarked && (
-        <motion.div
-          key={`burst-${clickKey}`}
-          initial={{ scale: 0.5, opacity: 0.5 }}
-          animate={{ scale: 2.6, opacity: 0 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          className='absolute w-4 h-4 rounded-full bg-blue-400 pointer-events-none'
-        />
-      )}
+    <div
+      className='relative flex items-center justify-center cursor-pointer'
+      onClick={handleClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => { setIsHovered(false); setIsPressed(false) }}
+      onMouseDown={() => setIsPressed(true)}
+      onMouseUp={() => setIsPressed(false)}
+    >
+      <motion.div
+        animate={{
+          opacity: isHovered ? 1 : 0,
+          backgroundColor: isPressed ? 'rgba(59,130,246,0.22)' : 'rgba(59,130,246,0.12)',
+        }}
+        transition={{ duration: 0.08 }}
+        className='absolute w-7 h-7 rounded-full pointer-events-none'
+      />
       <motion.div
         key={`bookmark-${clickKey}`}
         animate={bookmarked ? { scale: [1, 1.4, 0.85, 1.1, 1] } : { scale: [1, 0.8, 1] }}
         transition={{ duration: 0.35, ease: 'easeOut' }}
-        className={bookmarked ? 'text-blue-500' : 'text-neutral-500'}
+        className={bookmarked ? 'text-blue-500' : isHovered ? 'text-blue-400' : 'text-neutral-500'}
       >
         <IconBookmark size={16} stroke={1.5} fill={bookmarked ? 'currentColor' : 'none'} />
       </motion.div>
