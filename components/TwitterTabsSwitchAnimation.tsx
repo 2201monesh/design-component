@@ -46,6 +46,38 @@ const LikeButton = ({ count }: { count: string }) => {
   )
 }
 
+const BookmarkButton = ({ initialBookmarked = false }: { initialBookmarked?: boolean }) => {
+  const [bookmarked, setBookmarked] = useState(initialBookmarked)
+  const [clickKey, setClickKey] = useState(0)
+
+  const handleClick = () => {
+    setBookmarked(prev => !prev)
+    setClickKey(k => k + 1)
+  }
+
+  return (
+    <div className='relative flex items-center justify-center cursor-pointer' onClick={handleClick}>
+      {bookmarked && (
+        <motion.div
+          key={`burst-${clickKey}`}
+          initial={{ scale: 0.5, opacity: 0.5 }}
+          animate={{ scale: 2.6, opacity: 0 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+          className='absolute w-4 h-4 rounded-full bg-blue-400 pointer-events-none'
+        />
+      )}
+      <motion.div
+        key={`bookmark-${clickKey}`}
+        animate={bookmarked ? { scale: [1, 1.4, 0.85, 1.1, 1] } : { scale: [1, 0.8, 1] }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
+        className={bookmarked ? 'text-blue-500' : 'text-neutral-500'}
+      >
+        <IconBookmark size={16} stroke={1.5} fill={bookmarked ? 'currentColor' : 'none'} />
+      </motion.div>
+    </div>
+  )
+}
+
 const TwitterTabsSwitchAnimation = () => {
   const [active, setActive] = useState(0)
 
@@ -134,9 +166,7 @@ const TwitterTabsSwitchAnimation = () => {
                       <IconChartBar size={16} stroke={1.5} />
                       <span className='text-xs'>12K</span>
                     </div>
-                    <div>
-                      <IconBookmark size={16} stroke={1.5} className='text-blue-500 cursor-pointer' fill='currentColor' />
-                    </div>
+                    <BookmarkButton initialBookmarked={true} />
                     <div>
                       <IconUpload size={16} stroke={1.5} className='cursor-pointer' />
                     </div>
@@ -175,9 +205,7 @@ const TwitterTabsSwitchAnimation = () => {
                       <IconChartBar size={16} stroke={1.5} />
                       <span className='text-xs'>36K</span>
                     </div>
-                    <div>
-                      <IconBookmark size={16} stroke={1.5} className='cursor-pointer' />
-                    </div>
+                    <BookmarkButton initialBookmarked={false} />
                     <div>
                       <IconUpload size={16} stroke={1.5} className='cursor-pointer' />
                     </div>
@@ -221,9 +249,7 @@ const TwitterTabsSwitchAnimation = () => {
                       <IconChartBar size={16} stroke={1.5} />
                       <span className='text-xs'>47K</span>
                     </div>
-                    <div>
-                      <IconBookmark size={16} stroke={1.5} className='text-blue-500 cursor-pointer' fill='currentColor' />
-                    </div>
+                    <BookmarkButton initialBookmarked={true} />
                     <div>
                       <IconUpload size={16} stroke={1.5} className='cursor-pointer' />
                     </div>
