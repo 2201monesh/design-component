@@ -260,7 +260,7 @@ const TwitterTabsSwitchAnimation = () => {
             {/* Likes panel */}
             <div className='w-[350px] shrink-0 pt-6'>
               <div className='flex items-start'>
-                <img src='https://i.pinimg.com/736x/a5/49/93/a54993c4f1a36b5e077e6c477c8fe3b3.jpg' alt='karawilson' className='w-10 h-10 rounded-full mr-4 shrink-0 object-cover bg-neutral-300' />
+                <img src='https://i.pinimg.com/1200x/d4/f9/88/d4f988e65982d8111e0dfd8e538d977d.jpg' alt='karawilson' className='w-10 h-10 rounded-full mr-4 shrink-0 object-cover bg-neutral-300' />
                 <div className='flex-1'>
                   <div className='flex justify-between items-center'>
                     <div className='flex items-center'>
