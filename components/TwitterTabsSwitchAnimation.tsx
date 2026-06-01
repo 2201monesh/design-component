@@ -41,8 +41,8 @@ const LikeButton = ({ count, initialLiked = false }: { count: string; initialLik
         />
         <motion.div
           key={`heart-${clickKey}`}
-          animate={liked ? { scale: [1, 1.5, 0.85, 1.1, 1] } : { scale: [1, 0.8, 1] }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
+          animate={liked ? { scale: [1, 1.2, 0.9, 1.05, 1] } : { scale: [1, 0.85, 1] }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
           className={liked ? 'text-pink-500' : isHovered ? 'text-pink-400' : 'text-neutral-500'}
         >
           <IconHeart size={16} stroke={1.5} fill={liked ? 'currentColor' : 'none'} />
@@ -83,8 +83,8 @@ const BookmarkButton = ({ initialBookmarked = false }: { initialBookmarked?: boo
       />
       <motion.div
         key={`bookmark-${clickKey}`}
-        animate={bookmarked ? { scale: [1, 1.4, 0.85, 1.1, 1] } : { scale: [1, 0.8, 1] }}
-        transition={{ duration: 0.35, ease: 'easeOut' }}
+        animate={bookmarked ? { scale: [1, 1.15, 0.9, 1.05, 1] } : { scale: [1, 0.85, 1] }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
         className={bookmarked ? 'text-blue-500' : isHovered ? 'text-blue-400' : 'text-neutral-500'}
       >
         <IconBookmark size={16} stroke={1.5} fill={bookmarked ? 'currentColor' : 'none'} />
@@ -105,7 +105,7 @@ const TwitterTabsSwitchAnimation = () => {
               key={tab}
               onClick={() => setActive(i)}
               className={`relative py-3 px-2 text-sm font-medium transition-colors duration-200 cursor-pointer
-                ${active === i ? 'text-neutral-900' : 'text-neutral-400 hover:text-neutral-600'}`}
+                ${active === i ? 'text-neutral-900 dark:text-neutral-100' : 'text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300'}`}
             >
               <span className='relative flex items-center gap-1'>
                 {tab}
@@ -151,7 +151,7 @@ const TwitterTabsSwitchAnimation = () => {
             {/* Bookmarks panel */}
             <div className='w-[350px] shrink-0 pt-6'>
               <div className='flex items-start'>
-                <img src='https://i.pinimg.com/736x/3d/36/c2/3d36c23f2c42fcc5991c5abb80ee579c.jpg' alt='moneshgoyal' className='w-10 h-10 rounded-full mr-4 shrink-0 object-cover bg-neutral-300' />
+                <img src='https://i.pinimg.com/736x/3d/36/c2/3d36c23f2c42fcc5991c5abb80ee579c.jpg' alt='moneshgoyal' className='w-10 h-10 rounded-full mr-4 shrink-0 object-cover bg-neutral-300 dark:bg-neutral-700' />
                 <div className='flex-1'>
                   <div className='flex justify-between items-center'>
                     <div className='flex items-center'>
@@ -192,7 +192,7 @@ const TwitterTabsSwitchAnimation = () => {
             {/* Videos panel */}
             <div className='w-[350px] shrink-0 pt-6'>
               <div className='flex items-start'>
-                <img src='https://i.pinimg.com/736x/1f/d0/26/1fd026649d01411791060693175166f9.jpg' alt='leotopez' className='w-10 h-10 rounded-full mr-4 shrink-0 object-cover bg-neutral-300' />
+                <img src='https://i.pinimg.com/736x/1f/d0/26/1fd026649d01411791060693175166f9.jpg' alt='leotopez' className='w-10 h-10 rounded-full mr-4 shrink-0 object-cover bg-neutral-300 dark:bg-neutral-700' />
                 <div className='flex-1'>
                   <div className='flex justify-between items-center'>
                     <div className='flex items-center'>
@@ -231,7 +231,7 @@ const TwitterTabsSwitchAnimation = () => {
             {/* Articles panel (empty) */}
             <div className='w-[350px] shrink-0 pt-6'>
               <div className='flex items-start'>
-                <img src='https://i.pinimg.com/1200x/25/ae/cb/25aecb24e0da22d3e1f07a7ed8f8d5f9.jpg' alt='moneshgoyal' className='w-10 h-10 rounded-full mr-4 shrink-0 object-cover bg-neutral-300' />
+                <img src='https://i.pinimg.com/1200x/25/ae/cb/25aecb24e0da22d3e1f07a7ed8f8d5f9.jpg' alt='moneshgoyal' className='w-10 h-10 rounded-full mr-4 shrink-0 object-cover bg-neutral-300 dark:bg-neutral-700' />
                 <div className='flex-1'>
                   <div className='flex justify-between items-center'>
                     <div className='flex items-center'>
@@ -243,10 +243,10 @@ const TwitterTabsSwitchAnimation = () => {
                     <HiOutlineDotsHorizontal className='cursor-pointer' />
                   </div>
                   <p className='text-sm leading-5 tracking-normal mt-4'>Just published a deep dive on design systems — why most teams build them too early, and what to do instead.</p>
-                  <div className='mt-3 rounded-xl border border-neutral-200 overflow-hidden'>
+                  <div className='mt-3 rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden'>
                     <img src='https://i.pinimg.com/736x/4b/82/a1/4b82a1019e25d32a95210ee208429fe6.jpg' alt='article preview' className='w-full h-28 object-cover' />
                     <div className='px-3 py-2'>
-                      <p className='text-xs font-semibold text-neutral-800 leading-4'>Design Systems Are Overrated (Until They&apos;re Not)</p>
+                      <p className='text-xs font-semibold text-neutral-800 dark:text-neutral-200 leading-4'>Design Systems Are Overrated (Until They&apos;re Not)</p>
                       <p className='text-[11px] text-neutral-400 mt-0.5'>yakusuri.dev · 6 min read</p>
                     </div>
                   </div>
@@ -275,7 +275,7 @@ const TwitterTabsSwitchAnimation = () => {
             {/* Likes panel */}
             <div className='w-[350px] shrink-0 pt-6'>
               <div className='flex items-start'>
-                <img src='https://i.pinimg.com/1200x/d4/f9/88/d4f988e65982d8111e0dfd8e538d977d.jpg' alt='karawilson' className='w-10 h-10 rounded-full mr-4 shrink-0 object-cover bg-neutral-300' />
+                <img src='https://i.pinimg.com/1200x/d4/f9/88/d4f988e65982d8111e0dfd8e538d977d.jpg' alt='karawilson' className='w-10 h-10 rounded-full mr-4 shrink-0 object-cover bg-neutral-300 dark:bg-neutral-700' />
                 <div className='flex-1'>
                   <div className='flex justify-between items-center'>
                     <div className='flex items-center'>
