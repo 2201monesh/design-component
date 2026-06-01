@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { IoIosArrowDown } from 'react-icons/io'
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
@@ -95,6 +95,18 @@ const BookmarkButton = ({ initialBookmarked = false }: { initialBookmarked?: boo
 
 const TwitterTabsSwitchAnimation = () => {
   const [active, setActive] = useState(0)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [slideDir, setSlideDir] = useState<'left' | 'right'>('right')
+  const animTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const handleTabChange = (i: number) => {
+    if (i === active) return
+    setSlideDir(i > active ? 'right' : 'left')
+    setActive(i)
+    setIsAnimating(true)
+    if (animTimerRef.current) clearTimeout(animTimerRef.current)
+    animTimerRef.current = setTimeout(() => setIsAnimating(false), 350)
+  }
 
   return (
     <div className='w-full h-full flex items-center justify-center'>
@@ -103,7 +115,7 @@ const TwitterTabsSwitchAnimation = () => {
           {tabs.map((tab, i) => (
             <button
               key={tab}
-              onClick={() => setActive(i)}
+              onClick={() => handleTabChange(i)}
               className={`relative py-3 px-2 text-sm font-medium transition-colors duration-200 cursor-pointer
                 ${active === i ? 'text-neutral-900 dark:text-neutral-100' : 'text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300'}`}
             >
@@ -142,7 +154,19 @@ const TwitterTabsSwitchAnimation = () => {
             </button>
           ))}
         </div>
-        <div className='overflow-hidden flex-1 w-[350px]'>
+        <div className='overflow-hidden flex-1 w-[350px] relative'>
+          <motion.div
+            animate={{ opacity: isAnimating && slideDir === 'left' ? 1 : 0 }}
+            transition={{ duration: 0.12 }}
+            className='absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none'
+            style={{ background: 'linear-gradient(to right, var(--background) 15%, transparent)' }}
+          />
+          <motion.div
+            animate={{ opacity: isAnimating && slideDir === 'right' ? 1 : 0 }}
+            transition={{ duration: 0.12 }}
+            className='absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none'
+            style={{ background: 'linear-gradient(to left, var(--background) 15%, transparent)' }}
+          />
           <motion.div
             animate={{ x: active * -350 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
