@@ -23,6 +23,8 @@ const CardCarousal = () => {
   const [rotation, setRotation] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  const lastTouchX = useRef(0)
+
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
@@ -32,8 +34,26 @@ const CardCarousal = () => {
       setRotation(prev => prev + e.deltaX * SCROLL_SENSITIVITY)
     }
 
+    const handleTouchStart = (e: TouchEvent) => {
+      lastTouchX.current = e.touches[0].clientX
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault()
+      const deltaX = e.touches[0].clientX - lastTouchX.current
+      lastTouchX.current = e.touches[0].clientX
+      setRotation(prev => prev - deltaX * SCROLL_SENSITIVITY)
+    }
+
     el.addEventListener('wheel', handleWheel, { passive: false })
-    return () => el.removeEventListener('wheel', handleWheel)
+    el.addEventListener('touchstart', handleTouchStart, { passive: true })
+    el.addEventListener('touchmove', handleTouchMove, { passive: false })
+
+    return () => {
+      el.removeEventListener('wheel', handleWheel)
+      el.removeEventListener('touchstart', handleTouchStart)
+      el.removeEventListener('touchmove', handleTouchMove)
+    }
   }, [])
 
   return (
