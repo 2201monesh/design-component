@@ -3,11 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 const CARD_COUNT = 6
-const ANGLE_STEP = 360 / CARD_COUNT // 60° per card
-const CARD_WIDTH_PX = 288 // w-72 = 18rem at 16px base
-const GAP_PX = 30 // spacing between adjacent card edges
-// Inradius of regular hexagon with effective side = card width + gap
-const RADIUS = Math.round((CARD_WIDTH_PX + GAP_PX) / (2 * Math.tan(Math.PI / CARD_COUNT))) // ~267px
+const ANGLE_STEP = 360 / CARD_COUNT
 const SCROLL_SENSITIVITY = 0.3
 
 const CARD_IMAGES = [
@@ -21,9 +17,17 @@ const CARD_IMAGES = [
 
 const CardCarousal = () => {
   const [rotation, setRotation] = useState(0)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const [opacity, setOpacity] = useState(1)
+  const [spread, setSpread] = useState(100)   // 0 = flat row, 100 = full hexagon
+  const [cardWidth, setCardWidth] = useState(288)
+  const [gap, setGap] = useState(30)
 
+  const containerRef = useRef<HTMLDivElement>(null)
   const lastTouchX = useRef(0)
+
+  // t=0 → flat line, t=1 → full hexagon
+  const t = spread / 100
+  const hexRadius = (cardWidth + gap) / (2 * Math.tan(Math.PI / CARD_COUNT))
 
   useEffect(() => {
     const el = containerRef.current
@@ -57,34 +61,128 @@ const CardCarousal = () => {
   }, [])
 
   return (
-    <div
-      ref={containerRef}
-      className="flex items-center justify-center"
-      style={{ width: '800px', height: '300px', perspective: '1000px' }}
-    >
+    <>
       <div
-        className="relative w-72 h-34"
-        style={{ transformStyle: 'preserve-3d', transform: `rotateY(${rotation}deg)` }}
+        ref={containerRef}
+        className="flex items-center justify-center"
+        style={{ width: '800px', height: '300px', perspective: '1000px' }}
       >
-        {CARD_IMAGES.map((img, i) => (
-          <Card key={i} index={i} image={img} />
-        ))}
+        <div
+          className="relative h-34"
+          style={{
+            width: cardWidth,
+            transformStyle: 'preserve-3d',
+            transform: `rotateY(${rotation}deg)`,
+          }}
+        >
+          {CARD_IMAGES.map((img, i) => (
+            <Card
+              key={i}
+              index={i}
+              image={img}
+              opacity={opacity}
+              t={t}
+              hexRadius={hexRadius}
+              cardWidth={cardWidth}
+              gap={gap}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+
+      <SettingsPanel
+        opacity={opacity}        onOpacityChange={setOpacity}
+        spread={spread}          onSpreadChange={setSpread}
+        cardWidth={cardWidth}    onCardWidthChange={setCardWidth}
+        gap={gap}                onGapChange={setGap}
+      />
+    </>
   )
 }
 
 export default CardCarousal
 
-const Card = ({ index, image }: { index: number; image: string }) => {
-  const rotateY = ANGLE_STEP * index
+// ─── Card ────────────────────────────────────────────────────────────────────
+
+type CardProps = {
+  index: number
+  image: string
+  opacity: number
+  t: number
+  hexRadius: number
+  cardWidth: number
+  gap: number
+}
+
+const Card = ({ index, image, opacity, t, hexRadius, cardWidth, gap }: CardProps) => {
+  const slot = cardWidth + gap
+  const offsetX = (index - (CARD_COUNT - 1) / 2) * slot * (1 - t)
+  const rotateY  = ANGLE_STEP * index * t
+  const translateZ = hexRadius * t
+
   return (
     <div
       className="absolute inset-0 rounded-xl bg-neutral-200 bg-cover bg-center"
       style={{
-        transform: `rotateY(${rotateY}deg) translateZ(${RADIUS}px)`,
+        opacity,
         backgroundImage: `url(${image})`,
+        transform: `translateX(${offsetX}px) rotateY(${rotateY}deg) translateZ(${translateZ}px)`,
+        transition: 'transform 0.35s ease, opacity 0.2s ease',
       }}
     />
   )
 }
+
+// ─── Settings panel ──────────────────────────────────────────────────────────
+
+type SliderRowProps = {
+  label: string
+  value: number
+  min: number
+  max: number
+  step: number
+  unit?: string
+  onChange: (v: number) => void
+}
+
+const SliderRow = ({ label, value, min, max, step, unit = '', onChange }: SliderRowProps) => (
+  <div className="mb-3 last:mb-0">
+    <div className="flex justify-between items-center mb-1.5">
+      <span className="text-xs font-medium text-neutral-700">{label}</span>
+      <span className="text-xs tabular-nums text-neutral-400">
+        {Number.isInteger(value) ? value : value.toFixed(2)}{unit}
+      </span>
+    </div>
+    <input
+      type="range"
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      onChange={e => onChange(Number(e.target.value))}
+      className="w-full h-1 rounded-full appearance-none cursor-pointer accent-neutral-800 bg-neutral-200"
+    />
+  </div>
+)
+
+type SettingsPanelProps = {
+  opacity: number;      onOpacityChange: (v: number) => void
+  spread: number;       onSpreadChange: (v: number) => void
+  cardWidth: number;    onCardWidthChange: (v: number) => void
+  gap: number;          onGapChange: (v: number) => void
+}
+
+const SettingsPanel = ({
+  opacity, onOpacityChange,
+  spread, onSpreadChange,
+  cardWidth, onCardWidthChange,
+  gap, onGapChange,
+}: SettingsPanelProps) => (
+  <div className="fixed bottom-6 right-6 bg-white border border-neutral-100 rounded-2xl shadow-xl shadow-neutral-200/60 p-4 w-60">
+    <p className="text-sm font-semibold text-neutral-800 mb-4">Options</p>
+    <SliderRow label="Opacity"     value={opacity}    min={0.1} max={1}   step={0.05} onChange={onOpacityChange} />
+    <SliderRow label="Radius"      value={spread}     min={0}   max={100} step={1}    unit="%" onChange={onSpreadChange} />
+    <SliderRow label="Card Width"  value={cardWidth}  min={80}  max={350} step={1}    unit="px" onChange={onCardWidthChange} />
+    <SliderRow label="Gap"         value={gap}        min={0}   max={100} step={1}    unit="px" onChange={onGapChange} />
+  </div>
+)
