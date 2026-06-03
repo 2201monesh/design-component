@@ -1,5 +1,6 @@
 import AnimatedCards from "@/components/AnimatedCards";
 import BookCardAnimation from "@/components/BookCardAnimation";
+import CardCarousal from "@/components/CardCarousal";
 import DiscordAnimation from "@/components/DiscordAnimation";
 import DraggableChain from "@/components/DraggableChain";
 import EmailProductDesign from "@/components/EmailProductDesign";
@@ -37,7 +38,8 @@ export default function Home() {
       {/* <FolderCardAnimation /> */}
       {/* <TableComponent /> */}
       {/* <BookCardAnimation /> */}
-      <TwitterTabsSwitchAnimation />
+      {/* <TwitterTabsSwitchAnimation /> */}
+      <CardCarousal />
     </div>
   );
 }
