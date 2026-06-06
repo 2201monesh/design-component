@@ -7,12 +7,12 @@ const ANGLE_STEP = 360 / CARD_COUNT
 const SCROLL_SENSITIVITY = 0.3
 
 const CARD_IMAGES = [
-  'https://i.pinimg.com/736x/d2/f7/48/d2f74855f505e846f70b6fea8328c282.jpg',
-  'https://i.pinimg.com/736x/85/a6/ec/85a6ecb98250e3b9d7a51a341ff30ae4.jpg',
-  'https://i.pinimg.com/736x/2e/19/ec/2e19ecbf70db86240090cb5570c35283.jpg',
-  'https://i.pinimg.com/736x/d7/ab/ab/d7abab99acbb079c9c833ed8b1e9329e.jpg',
-  'https://i.pinimg.com/736x/e5/34/b3/e534b37d96c742e341384f3daf4bef2f.jpg',
-  'https://i.pinimg.com/736x/50/9e/49/509e49a1eede7ac819a3a7e70d452498.jpg',
+  '/img-carousal-img-1.jpg',
+  '/img-carousal-img-2.jpg',
+  '/img-carousal-img-3.jpg',
+  '/img-carousal-img-4.jpg',
+  '/img-carousal-img-5.jpg',
+  '/img-carousal-img-6.jpg',
 ]
 
 const CARD_LABELS = [
