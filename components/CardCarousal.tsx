@@ -8,30 +8,30 @@ const ANGLE_STEP = 360 / CARD_COUNT
 const SCROLL_SENSITIVITY = 0.3
 
 const CARD_IMAGES = [
-  '/img-carousal-img-1.jpg',
-  '/img-carousal-img-2.jpg',
-  '/img-carousal-img-3.jpg',
-  '/img-carousal-img-4.jpg',
-  '/img-carousal-img-5.jpg',
-  '/img-carousal-img-6.jpg',
+  '/img-carousal-img-7.jpg',
+  '/img-carousal-img-8.jpg',
+  '/img-carousal-img-9.jpg',
+  '/img-carousal-img-14.jpg',
+  '/img-carousal-img-11.jpg',
+  '/img-carousal-img-12.jpg',
 ]
 
 const CARD_LABELS = [
-  'Urban Glow',
-  'Night Sky',
-  'Forest Walk',
-  'Ocean Drift',
-  'Mountain Air',
-  'Desert Bloom',
+  'Interstellar',
+  'La haine',
+  'Pulp Fiction',
+  'The Green Mile',
+  'Raging Bull',
+  'Whiplash',
 ]
 
 const CARD_CHIPS: [string, string][] = [
-  ['2024', 'Editorial'],
-  ['2023', 'Series'],
-  ['2024', 'Nature'],
-  ['2022', 'Landscape'],
-  ['2025', 'Travel'],
-  ['2023', 'Portrait'],
+  ['2014', 'Science fiction'],
+  ['1995', 'Political cinema'],
+  ['1994', 'Comedy'],
+  ['1999', 'Melodrama'],
+  ['1980', 'Action drama'],
+  ['2014', 'Musical drama'],
 ]
 
 const CardCarousal = () => {
