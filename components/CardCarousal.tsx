@@ -151,7 +151,7 @@ const Card = ({ index, image, label, chips, opacity, t, hexRadius, cardWidth, ga
       }}
     >
       <div
-        className="w-full h-full rounded-xl bg-neutral-200 bg-cover bg-center"
+        className="w-full h-full rounded-xl bg-neutral-200 dark:bg-neutral-700 bg-cover bg-center"
         style={{
           opacity,
           backgroundImage: `url(${image})`,
@@ -161,7 +161,7 @@ const Card = ({ index, image, label, chips, opacity, t, hexRadius, cardWidth, ga
       {cardWidth >= 190 && (
         <div className='flex items-center justify-center'>
           <p
-            className="ml-2 mr-2 text-xs text-center font-medium mt-2"
+            className="ml-2 mr-2 text-xs text-center font-medium mt-2 text-neutral-700 dark:text-neutral-300"
             style={{ opacity }}
           >
             {label}
@@ -170,7 +170,7 @@ const Card = ({ index, image, label, chips, opacity, t, hexRadius, cardWidth, ga
             {chips.map((chip, ci) => (
               <span
                 key={ci}
-                className="px-2 py-0.5 rounded-full bg-neutral-100 text-neutral-600 text-[9px] font-medium whitespace-nowrap"
+                className="px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 text-[9px] font-medium whitespace-nowrap"
               >
                 {chip}
               </span>
@@ -197,8 +197,8 @@ type SliderRowProps = {
 const SliderRow = ({ label, value, min, max, step, unit = '', onChange }: SliderRowProps) => (
   <div>
     <div className="flex justify-between items-center mb-1">
-      <span className="text-[11px] font-medium text-neutral-500">{label}</span>
-      <span className="text-[11px] tabular-nums text-neutral-400">
+      <span className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">{label}</span>
+      <span className="text-[11px] tabular-nums text-neutral-400 dark:text-neutral-500">
         {Number.isInteger(value) ? value : value.toFixed(2)}{unit}
       </span>
     </div>
@@ -209,7 +209,7 @@ const SliderRow = ({ label, value, min, max, step, unit = '', onChange }: Slider
       step={step}
       value={value}
       onChange={e => onChange(Number(e.target.value))}
-      className="w-full h-0.5 rounded-full appearance-none cursor-pointer accent-neutral-500 bg-neutral-200"
+      className="w-full h-0.5 rounded-full appearance-none cursor-pointer accent-neutral-500 bg-neutral-200 dark:bg-neutral-700"
     />
   </div>
 )
@@ -227,8 +227,8 @@ const SettingsPanel = ({
   cardWidth, onCardWidthChange,
   gap, onGapChange,
 }: SettingsPanelProps) => (
-  <div className="fixed bottom-6 right-6 bg-white/90 backdrop-blur-md border border-neutral-200/60 rounded-2xl shadow-sm p-4 w-52">
-    <p className="text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-4">Controls</p>
+  <div className="fixed bottom-6 right-6 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-neutral-200/60 dark:border-neutral-700/60 rounded-2xl shadow-sm p-4 w-52">
+    <p className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-4">Controls</p>
     <div className="space-y-4">
       <SliderRow label="Opacity"    value={opacity}   min={0.1} max={1}   step={0.05} onChange={onOpacityChange} />
       <SliderRow label="Radius"     value={spread}    min={0}   max={100} step={1}    unit="%" onChange={onSpreadChange} />
