@@ -238,25 +238,50 @@ type SliderRowProps = {
   onChange: (v: number) => void
 }
 
-const SliderRow = ({ label, value, min, max, step, unit = '', onChange }: SliderRowProps) => (
-  <div>
-    <div className="flex justify-between items-center mb-1">
-      <span className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">{label}</span>
-      <span className="text-[11px] tabular-nums text-neutral-400 dark:text-neutral-500">
-        {Number.isInteger(value) ? value : value.toFixed(2)}{unit}
-      </span>
+const SliderRow = ({ label, value, min, max, step, unit = '', onChange }: SliderRowProps) => {
+  const trackRef = useRef<HTMLDivElement>(null)
+
+  const valueFromX = (clientX: number) => {
+    const rect = trackRef.current!.getBoundingClientRect()
+    const pct = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width))
+    const raw = min + pct * (max - min)
+    const stepped = Math.round(raw / step) * step
+    return parseFloat(Math.min(max, Math.max(min, stepped)).toFixed(10))
+  }
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault()
+    onChange(valueFromX(e.clientX))
+    const onMove = (e: MouseEvent) => onChange(valueFromX(e.clientX))
+    const onUp = () => {
+      document.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseup', onUp)
+    }
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseup', onUp)
+  }
+
+  const pct = ((value - min) / (max - min)) * 100
+
+  return (
+    <div
+      ref={trackRef}
+      onMouseDown={handleMouseDown}
+      className="relative h-8 rounded-md bg-neutral-100 dark:bg-neutral-800 cursor-pointer overflow-hidden"
+    >
+      <div
+        className="absolute inset-y-0 left-0 bg-neutral-200 dark:bg-neutral-600"
+        style={{ width: `${pct}%` }}
+      />
+      <div className="absolute inset-0 flex items-center justify-between px-2.5">
+        <span className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">{label}</span>
+        <span className="text-[11px] tabular-nums text-neutral-400 dark:text-neutral-500">
+          {Number.isInteger(value) ? value : value.toFixed(2)}{unit}
+        </span>
+      </div>
     </div>
-    <input
-      type="range"
-      min={min}
-      max={max}
-      step={step}
-      value={value}
-      onChange={e => onChange(Number(e.target.value))}
-      className="square-thumb w-full h-0.5 rounded-full appearance-none cursor-pointer bg-neutral-200 dark:bg-neutral-700"
-    />
-  </div>
-)
+  )
+}
 
 type SettingsPanelProps = {
   opacity: number;        onOpacityChange: (v: number) => void

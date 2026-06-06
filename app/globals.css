@@ -43,25 +43,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Square thumb for card carousel sliders */
-.square-thumb::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  background: #737373;
-  cursor: pointer;
-}
-
-.square-thumb::-moz-range-thumb {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  border: none;
-  background: #737373;
-  cursor: pointer;
-}
 
 @keyframes github-pulse {
   0%, 100% { opacity: 0.08; }
