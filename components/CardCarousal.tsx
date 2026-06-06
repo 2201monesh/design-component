@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
 
 const CARD_COUNT = 6
 const ANGLE_STEP = 360 / CARD_COUNT
@@ -37,7 +36,7 @@ const CARD_CHIPS: [string, string][] = [
 const CardCarousal = () => {
   const [rotation, setRotation] = useState(0)
   const [opacity, setOpacity] = useState(1)
-  const [spread, setSpread] = useState(100)   // 0 = flat row, 100 = full hexagon
+  const [spread, setSpread] = useState(100)
   const [cardWidth, setCardWidth] = useState(288)
   const [gap, setGap] = useState(30)
   const [tiltX, setTiltX] = useState(0)
@@ -51,7 +50,6 @@ const CardCarousal = () => {
   const animFrameRef = useRef<number | null>(null)
   const lastTimeRef = useRef<number | null>(null)
 
-  // t=0 → flat line, t=1 → full hexagon
   const t = spread / 100
   const hexRadius = (cardWidth + gap) / (2 * Math.tan(Math.PI / CARD_COUNT))
 
@@ -149,7 +147,7 @@ const CardCarousal = () => {
         </div>
       </div>
 
-      <SettingsPanel
+      <TweakpanePanel
         opacity={opacity}          onOpacityChange={setOpacity}
         spread={spread}            onSpreadChange={setSpread}
         cardWidth={cardWidth}      onCardWidthChange={setCardWidth}
@@ -226,68 +224,9 @@ const Card = ({ index, image, label, chips, opacity, t, hexRadius, cardWidth, ga
   )
 }
 
-// ─── Settings panel ──────────────────────────────────────────────────────────
+// ─── Tweakpane panel ─────────────────────────────────────────────────────────
 
-type SliderRowProps = {
-  label: string
-  value: number
-  min: number
-  max: number
-  step: number
-  unit?: string
-  onChange: (v: number) => void
-}
-
-const SliderRow = ({ label, value, min, max, step, unit = '', onChange }: SliderRowProps) => {
-  const trackRef = useRef<HTMLDivElement>(null)
-
-  const valueFromX = (clientX: number) => {
-    const rect = trackRef.current!.getBoundingClientRect()
-    const pct = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width))
-    const raw = min + pct * (max - min)
-    const stepped = Math.round(raw / step) * step
-    return parseFloat(Math.min(max, Math.max(min, stepped)).toFixed(10))
-  }
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault()
-    onChange(valueFromX(e.clientX))
-    const onMove = (e: MouseEvent) => onChange(valueFromX(e.clientX))
-    const onUp = () => {
-      document.removeEventListener('mousemove', onMove)
-      document.removeEventListener('mouseup', onUp)
-    }
-    document.addEventListener('mousemove', onMove)
-    document.addEventListener('mouseup', onUp)
-  }
-
-  const pct = ((value - min) / (max - min)) * 100
-
-  return (
-    <div
-      ref={trackRef}
-      onMouseDown={handleMouseDown}
-      className="group relative h-8 rounded-md bg-neutral-100 dark:bg-neutral-800 cursor-pointer overflow-hidden"
-    >
-      <div
-        className="absolute inset-y-0 left-0 bg-neutral-200 dark:bg-neutral-600"
-        style={{ width: `${pct}%` }}
-      >
-        <div className="absolute right-0 inset-y-0 flex items-center">
-          <div className="w-[2px] h-4 mr-1 rounded-full bg-neutral-400 dark:bg-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
-        </div>
-      </div>
-      <div className="absolute inset-0 flex items-center justify-between px-2.5">
-        <span className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">{label}</span>
-        <span className="text-[11px] tabular-nums text-neutral-400 dark:text-neutral-500">
-          {Number.isInteger(value) ? value : value.toFixed(2)}{unit}
-        </span>
-      </div>
-    </div>
-  )
-}
-
-type SettingsPanelProps = {
+type TweakpanePanelProps = {
   opacity: number;        onOpacityChange: (v: number) => void
   spread: number;         onSpreadChange: (v: number) => void
   cardWidth: number;      onCardWidthChange: (v: number) => void
@@ -299,7 +238,7 @@ type SettingsPanelProps = {
   rotateSpeed: number;    onRotateSpeedChange: (v: number) => void
 }
 
-const SettingsPanel = ({
+const TweakpanePanel = ({
   opacity, onOpacityChange,
   spread, onSpreadChange,
   cardWidth, onCardWidthChange,
@@ -309,42 +248,102 @@ const SettingsPanel = ({
   tiltZ, onTiltZChange,
   autoRotate, onAutoRotateChange,
   rotateSpeed, onRotateSpeedChange,
-}: SettingsPanelProps) => (
-  <div className="fixed bottom-6 right-6 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-neutral-200/60 dark:border-neutral-700/60 rounded-2xl shadow-sm p-4 w-52">
-    <div className="flex items-center justify-between mb-4">
-      <span className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">Auto Rotate</span>
-      <button
-        onClick={() => onAutoRotateChange(!autoRotate)}
-        className={`relative flex items-center w-10 h-5 rounded-full px-0.5 transition-colors duration-200 focus:outline-none flex-shrink-0 ${
-          autoRotate ? 'bg-neutral-800 dark:bg-neutral-200 justify-end' : 'bg-neutral-200 dark:bg-neutral-700 justify-start'
-        }`}
-      >
-        <motion.span
-          layout
-          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-          className="w-4 h-4 rounded-full bg-white dark:bg-neutral-900 shadow-sm"
-        />
-      </button>
-    </div>
-    <div className="mb-4">
-      <SliderRow label="Speed" value={rotateSpeed} min={5} max={120} step={5} unit="°/s" onChange={onRotateSpeedChange} />
-    </div>
-    <div className="pt-4 border-t border-neutral-200/60 dark:border-neutral-700/60">
-      <p className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-4">Controls</p>
-      <div className="space-y-4">
-        <SliderRow label="Opacity"    value={opacity}   min={0.1} max={1}   step={0.05} onChange={onOpacityChange} />
-        <SliderRow label="Radius"     value={spread}    min={0}   max={100} step={1}    unit="%" onChange={onSpreadChange} />
-        <SliderRow label="Card Width" value={cardWidth} min={80}  max={350} step={1}    unit="px" onChange={onCardWidthChange} />
-        <SliderRow label="Gap"        value={gap}       min={0}   max={100} step={1}    unit="px" onChange={onGapChange} />
-      </div>
-    </div>
-    <div className="mt-4 pt-4 border-t border-neutral-200/60 dark:border-neutral-700/60">
-      <p className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-4">Rotation</p>
-      <div className="space-y-4">
-        <SliderRow label="Rotate X" value={tiltX} min={-90}  max={90}  step={1} unit="°" onChange={onTiltXChange} />
-        <SliderRow label="Rotate Y" value={tiltY} min={-180} max={180} step={1} unit="°" onChange={onTiltYChange} />
-        <SliderRow label="Rotate Z" value={tiltZ} min={-180} max={180} step={1} unit="°" onChange={onTiltZChange} />
-      </div>
-    </div>
-  </div>
-)
+}: TweakpanePanelProps) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const paneRef = useRef<any>(null)
+
+  // Mutable object that Tweakpane binds to directly
+  const params = useRef({
+    autoRotate,
+    rotateSpeed,
+    opacity,
+    spread,
+    cardWidth,
+    gap,
+    tiltX,
+    tiltY,
+    tiltZ,
+  })
+
+  // Keep callbacks in a ref so Tweakpane event handlers always see the latest versions
+  const cbs = useRef({
+    onOpacityChange, onSpreadChange, onCardWidthChange, onGapChange,
+    onTiltXChange, onTiltYChange, onTiltZChange, onAutoRotateChange, onRotateSpeedChange,
+  })
+  useEffect(() => {
+    cbs.current = {
+      onOpacityChange, onSpreadChange, onCardWidthChange, onGapChange,
+      onTiltXChange, onTiltYChange, onTiltZChange, onAutoRotateChange, onRotateSpeedChange,
+    }
+  }, [
+    onOpacityChange, onSpreadChange, onCardWidthChange, onGapChange,
+    onTiltXChange, onTiltYChange, onTiltZChange, onAutoRotateChange, onRotateSpeedChange,
+  ])
+
+  // Mount Tweakpane once
+  useEffect(() => {
+    let disposed = false
+
+    const init = async () => {
+      const { Pane } = await import('tweakpane')
+      if (disposed || !containerRef.current) return
+
+      const pane = new Pane({ container: containerRef.current, title: 'Card Carousel' })
+      paneRef.current = pane
+
+      pane.addBinding(params.current, 'autoRotate', { label: 'Auto Rotate' })
+        .on('change', ev => cbs.current.onAutoRotateChange(ev.value as boolean))
+
+      pane.addBinding(params.current, 'rotateSpeed', { label: 'Speed', min: 5, max: 120, step: 5 })
+        .on('change', ev => cbs.current.onRotateSpeedChange(ev.value as number))
+
+      const controls = pane.addFolder({ title: 'Controls', expanded: true })
+      controls.addBinding(params.current, 'opacity', { label: 'Opacity', min: 0.1, max: 1, step: 0.05 })
+        .on('change', ev => cbs.current.onOpacityChange(ev.value as number))
+      controls.addBinding(params.current, 'spread', { label: 'Radius %', min: 0, max: 100, step: 1 })
+        .on('change', ev => cbs.current.onSpreadChange(ev.value as number))
+      controls.addBinding(params.current, 'cardWidth', { label: 'Card Width', min: 80, max: 350, step: 1 })
+        .on('change', ev => cbs.current.onCardWidthChange(ev.value as number))
+      controls.addBinding(params.current, 'gap', { label: 'Gap', min: 0, max: 100, step: 1 })
+        .on('change', ev => cbs.current.onGapChange(ev.value as number))
+
+      const rotationFolder = pane.addFolder({ title: 'Rotation', expanded: true })
+      rotationFolder.addBinding(params.current, 'tiltX', { label: 'Rotate X', min: -90, max: 90, step: 1 })
+        .on('change', ev => cbs.current.onTiltXChange(ev.value as number))
+      rotationFolder.addBinding(params.current, 'tiltY', { label: 'Rotate Y', min: -180, max: 180, step: 1 })
+        .on('change', ev => cbs.current.onTiltYChange(ev.value as number))
+      rotationFolder.addBinding(params.current, 'tiltZ', { label: 'Rotate Z', min: -180, max: 180, step: 1 })
+        .on('change', ev => cbs.current.onTiltZChange(ev.value as number))
+    }
+
+    init()
+
+    return () => {
+      disposed = true
+      paneRef.current?.dispose()
+      paneRef.current = null
+    }
+  }, [])
+
+  // Sync React state → Tweakpane when values change externally
+  useEffect(() => {
+    params.current.opacity = opacity
+    params.current.spread = spread
+    params.current.cardWidth = cardWidth
+    params.current.gap = gap
+    params.current.tiltX = tiltX
+    params.current.tiltY = tiltY
+    params.current.tiltZ = tiltZ
+    params.current.autoRotate = autoRotate
+    params.current.rotateSpeed = rotateSpeed
+    paneRef.current?.refresh()
+  }, [opacity, spread, cardWidth, gap, tiltX, tiltY, tiltZ, autoRotate, rotateSpeed])
+
+  return (
+    <div
+      ref={containerRef}
+      className="fixed bottom-6 right-6 z-50"
+      style={{ width: '260px' }}
+    />
+  )
+}
