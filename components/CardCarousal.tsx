@@ -267,12 +267,16 @@ const SliderRow = ({ label, value, min, max, step, unit = '', onChange }: Slider
     <div
       ref={trackRef}
       onMouseDown={handleMouseDown}
-      className="relative h-8 rounded-md bg-neutral-100 dark:bg-neutral-800 cursor-pointer overflow-hidden"
+      className="group relative h-8 rounded-md bg-neutral-100 dark:bg-neutral-800 cursor-pointer overflow-hidden"
     >
       <div
         className="absolute inset-y-0 left-0 bg-neutral-200 dark:bg-neutral-600"
         style={{ width: `${pct}%` }}
-      />
+      >
+        <div className="absolute right-0 inset-y-0 flex items-center">
+          <div className="w-[2px] h-4 mr-1 rounded-full bg-neutral-400 dark:bg-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+        </div>
+      </div>
       <div className="absolute inset-0 flex items-center justify-between px-2.5">
         <span className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">{label}</span>
         <span className="text-[11px] tabular-nums text-neutral-400 dark:text-neutral-500">
