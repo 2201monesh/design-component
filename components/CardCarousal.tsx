@@ -15,6 +15,24 @@ const CARD_IMAGES = [
   'https://i.pinimg.com/736x/50/9e/49/509e49a1eede7ac819a3a7e70d452498.jpg',
 ]
 
+const CARD_LABELS = [
+  'Urban Glow',
+  'Night Sky',
+  'Forest Walk',
+  'Ocean Drift',
+  'Mountain Air',
+  'Desert Bloom',
+]
+
+const CARD_CHIPS: [string, string][] = [
+  ['2024', 'Editorial'],
+  ['2023', 'Series'],
+  ['2024', 'Nature'],
+  ['2022', 'Landscape'],
+  ['2025', 'Travel'],
+  ['2023', 'Portrait'],
+]
+
 const CardCarousal = () => {
   const [rotation, setRotation] = useState(0)
   const [opacity, setOpacity] = useState(1)
@@ -80,6 +98,8 @@ const CardCarousal = () => {
               key={i}
               index={i}
               image={img}
+              label={CARD_LABELS[i]}
+              chips={CARD_CHIPS[i]}
               opacity={opacity}
               t={t}
               hexRadius={hexRadius}
@@ -107,6 +127,8 @@ export default CardCarousal
 type CardProps = {
   index: number
   image: string
+  label: string
+  chips: [string, string]
   opacity: number
   t: number
   hexRadius: number
@@ -114,7 +136,7 @@ type CardProps = {
   gap: number
 }
 
-const Card = ({ index, image, opacity, t, hexRadius, cardWidth, gap }: CardProps) => {
+const Card = ({ index, image, label, chips, opacity, t, hexRadius, cardWidth, gap }: CardProps) => {
   const slot = cardWidth + gap
   const offsetX = (index - (CARD_COUNT - 1) / 2) * slot * (1 - t)
   const rotateY  = ANGLE_STEP * index * t
@@ -122,14 +144,41 @@ const Card = ({ index, image, opacity, t, hexRadius, cardWidth, gap }: CardProps
 
   return (
     <div
-      className="absolute inset-0 rounded-xl bg-neutral-200 bg-cover bg-center"
+      className="absolute inset-0"
       style={{
-        opacity,
-        backgroundImage: `url(${image})`,
         transform: `translateX(${offsetX}px) rotateY(${rotateY}deg) translateZ(${translateZ}px)`,
-        transition: 'transform 0.35s ease, opacity 0.2s ease',
+        transition: 'transform 0.35s ease',
       }}
-    />
+    >
+      <div
+        className="w-full h-full rounded-xl bg-neutral-200 bg-cover bg-center"
+        style={{
+          opacity,
+          backgroundImage: `url(${image})`,
+          transition: 'opacity 0.2s ease',
+        }}
+      />
+      {cardWidth >= 190 && (
+        <div className='flex items-center justify-center'>
+          <p
+            className="ml-2 mr-2 text-xs text-center font-medium mt-2"
+            style={{ opacity }}
+          >
+            {label}
+          </p>
+          <div className="flex justify-center items-center gap-1.5 mt-2" style={{ opacity }}>
+            {chips.map((chip, ci) => (
+              <span
+                key={ci}
+                className="px-2 py-0.5 rounded-full bg-neutral-100 text-neutral-600 text-[9px] font-medium whitespace-nowrap"
+              >
+                {chip}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -146,10 +195,10 @@ type SliderRowProps = {
 }
 
 const SliderRow = ({ label, value, min, max, step, unit = '', onChange }: SliderRowProps) => (
-  <div className="mb-3 last:mb-0">
-    <div className="flex justify-between items-center mb-1.5">
-      <span className="text-xs font-medium text-neutral-700">{label}</span>
-      <span className="text-xs tabular-nums text-neutral-400">
+  <div>
+    <div className="flex justify-between items-center mb-1">
+      <span className="text-[11px] font-medium text-neutral-500">{label}</span>
+      <span className="text-[11px] tabular-nums text-neutral-400">
         {Number.isInteger(value) ? value : value.toFixed(2)}{unit}
       </span>
     </div>
@@ -160,7 +209,7 @@ const SliderRow = ({ label, value, min, max, step, unit = '', onChange }: Slider
       step={step}
       value={value}
       onChange={e => onChange(Number(e.target.value))}
-      className="w-full h-1 rounded-full appearance-none cursor-pointer accent-neutral-800 bg-neutral-200"
+      className="w-full h-0.5 rounded-full appearance-none cursor-pointer accent-neutral-500 bg-neutral-200"
     />
   </div>
 )
@@ -178,11 +227,13 @@ const SettingsPanel = ({
   cardWidth, onCardWidthChange,
   gap, onGapChange,
 }: SettingsPanelProps) => (
-  <div className="fixed bottom-6 right-6 bg-white border border-neutral-100 rounded-2xl shadow-xl shadow-neutral-200/60 p-4 w-60">
-    <p className="text-sm font-semibold text-neutral-800 mb-4">Options</p>
-    <SliderRow label="Opacity"     value={opacity}    min={0.1} max={1}   step={0.05} onChange={onOpacityChange} />
-    <SliderRow label="Radius"      value={spread}     min={0}   max={100} step={1}    unit="%" onChange={onSpreadChange} />
-    <SliderRow label="Card Width"  value={cardWidth}  min={80}  max={350} step={1}    unit="px" onChange={onCardWidthChange} />
-    <SliderRow label="Gap"         value={gap}        min={0}   max={100} step={1}    unit="px" onChange={onGapChange} />
+  <div className="fixed bottom-6 right-6 bg-white/90 backdrop-blur-md border border-neutral-200/60 rounded-2xl shadow-sm p-4 w-52">
+    <p className="text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-4">Controls</p>
+    <div className="space-y-4">
+      <SliderRow label="Opacity"    value={opacity}   min={0.1} max={1}   step={0.05} onChange={onOpacityChange} />
+      <SliderRow label="Radius"     value={spread}    min={0}   max={100} step={1}    unit="%" onChange={onSpreadChange} />
+      <SliderRow label="Card Width" value={cardWidth} min={80}  max={350} step={1}    unit="px" onChange={onCardWidthChange} />
+      <SliderRow label="Gap"        value={gap}       min={0}   max={100} step={1}    unit="px" onChange={onGapChange} />
+    </div>
   </div>
 )
