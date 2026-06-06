@@ -222,7 +222,7 @@ const SliderRow = ({ label, value, min, max, step, unit = '', onChange }: Slider
       step={step}
       value={value}
       onChange={e => onChange(Number(e.target.value))}
-      className="w-full h-0.5 rounded-full appearance-none cursor-pointer accent-neutral-500 bg-neutral-200 dark:bg-neutral-700"
+      className="square-thumb w-full h-0.5 rounded-full appearance-none cursor-pointer bg-neutral-200 dark:bg-neutral-700"
     />
   </div>
 )
