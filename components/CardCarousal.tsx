@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
 
 const CARD_COUNT = 6
 const ANGLE_STEP = 360 / CARD_COUNT
@@ -42,9 +43,13 @@ const CardCarousal = () => {
   const [tiltX, setTiltX] = useState(0)
   const [tiltY, setTiltY] = useState(0)
   const [tiltZ, setTiltZ] = useState(0)
+  const [autoRotate, setAutoRotate] = useState(true)
+  const [rotateSpeed, setRotateSpeed] = useState(30)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const lastTouchX = useRef(0)
+  const animFrameRef = useRef<number | null>(null)
+  const lastTimeRef = useRef<number | null>(null)
 
   // t=0 → flat line, t=1 → full hexagon
   const t = spread / 100
@@ -80,6 +85,30 @@ const CardCarousal = () => {
       el.removeEventListener('touchmove', handleTouchMove)
     }
   }, [])
+
+  useEffect(() => {
+    if (!autoRotate) {
+      if (animFrameRef.current !== null) cancelAnimationFrame(animFrameRef.current)
+      lastTimeRef.current = null
+      return
+    }
+
+    const tick = (time: number) => {
+      if (lastTimeRef.current !== null) {
+        const delta = time - lastTimeRef.current
+        setRotation(prev => prev + (rotateSpeed * delta) / 1000)
+      }
+      lastTimeRef.current = time
+      animFrameRef.current = requestAnimationFrame(tick)
+    }
+
+    animFrameRef.current = requestAnimationFrame(tick)
+
+    return () => {
+      if (animFrameRef.current !== null) cancelAnimationFrame(animFrameRef.current)
+      lastTimeRef.current = null
+    }
+  }, [autoRotate, rotateSpeed])
 
   return (
     <>
@@ -121,13 +150,15 @@ const CardCarousal = () => {
       </div>
 
       <SettingsPanel
-        opacity={opacity}        onOpacityChange={setOpacity}
-        spread={spread}          onSpreadChange={setSpread}
-        cardWidth={cardWidth}    onCardWidthChange={setCardWidth}
-        gap={gap}                onGapChange={setGap}
-        tiltX={tiltX}            onTiltXChange={setTiltX}
-        tiltY={tiltY}            onTiltYChange={setTiltY}
-        tiltZ={tiltZ}            onTiltZChange={setTiltZ}
+        opacity={opacity}          onOpacityChange={setOpacity}
+        spread={spread}            onSpreadChange={setSpread}
+        cardWidth={cardWidth}      onCardWidthChange={setCardWidth}
+        gap={gap}                  onGapChange={setGap}
+        tiltX={tiltX}              onTiltXChange={setTiltX}
+        tiltY={tiltY}              onTiltYChange={setTiltY}
+        tiltZ={tiltZ}              onTiltZChange={setTiltZ}
+        autoRotate={autoRotate}    onAutoRotateChange={setAutoRotate}
+        rotateSpeed={rotateSpeed}  onRotateSpeedChange={setRotateSpeed}
       />
     </>
   )
@@ -228,13 +259,15 @@ const SliderRow = ({ label, value, min, max, step, unit = '', onChange }: Slider
 )
 
 type SettingsPanelProps = {
-  opacity: number;      onOpacityChange: (v: number) => void
-  spread: number;       onSpreadChange: (v: number) => void
-  cardWidth: number;    onCardWidthChange: (v: number) => void
-  gap: number;          onGapChange: (v: number) => void
-  tiltX: number;        onTiltXChange: (v: number) => void
-  tiltY: number;        onTiltYChange: (v: number) => void
-  tiltZ: number;        onTiltZChange: (v: number) => void
+  opacity: number;        onOpacityChange: (v: number) => void
+  spread: number;         onSpreadChange: (v: number) => void
+  cardWidth: number;      onCardWidthChange: (v: number) => void
+  gap: number;            onGapChange: (v: number) => void
+  tiltX: number;          onTiltXChange: (v: number) => void
+  tiltY: number;          onTiltYChange: (v: number) => void
+  tiltZ: number;          onTiltZChange: (v: number) => void
+  autoRotate: boolean;    onAutoRotateChange: (v: boolean) => void
+  rotateSpeed: number;    onRotateSpeedChange: (v: number) => void
 }
 
 const SettingsPanel = ({
@@ -245,14 +278,36 @@ const SettingsPanel = ({
   tiltX, onTiltXChange,
   tiltY, onTiltYChange,
   tiltZ, onTiltZChange,
+  autoRotate, onAutoRotateChange,
+  rotateSpeed, onRotateSpeedChange,
 }: SettingsPanelProps) => (
   <div className="fixed bottom-6 right-6 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-neutral-200/60 dark:border-neutral-700/60 rounded-2xl shadow-sm p-4 w-52">
-    <p className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-4">Controls</p>
-    <div className="space-y-4">
-      <SliderRow label="Opacity"    value={opacity}   min={0.1} max={1}   step={0.05} onChange={onOpacityChange} />
-      <SliderRow label="Radius"     value={spread}    min={0}   max={100} step={1}    unit="%" onChange={onSpreadChange} />
-      <SliderRow label="Card Width" value={cardWidth} min={80}  max={350} step={1}    unit="px" onChange={onCardWidthChange} />
-      <SliderRow label="Gap"        value={gap}       min={0}   max={100} step={1}    unit="px" onChange={onGapChange} />
+    <div className="flex items-center justify-between mb-4">
+      <span className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">Auto Rotate</span>
+      <button
+        onClick={() => onAutoRotateChange(!autoRotate)}
+        className={`relative flex items-center w-10 h-5 rounded-full px-0.5 transition-colors duration-200 focus:outline-none flex-shrink-0 ${
+          autoRotate ? 'bg-neutral-800 dark:bg-neutral-200 justify-end' : 'bg-neutral-200 dark:bg-neutral-700 justify-start'
+        }`}
+      >
+        <motion.span
+          layout
+          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+          className="w-4 h-4 rounded-full bg-white dark:bg-neutral-900 shadow-sm"
+        />
+      </button>
+    </div>
+    <div className="mb-4">
+      <SliderRow label="Speed" value={rotateSpeed} min={5} max={120} step={5} unit="°/s" onChange={onRotateSpeedChange} />
+    </div>
+    <div className="pt-4 border-t border-neutral-200/60 dark:border-neutral-700/60">
+      <p className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-4">Controls</p>
+      <div className="space-y-4">
+        <SliderRow label="Opacity"    value={opacity}   min={0.1} max={1}   step={0.05} onChange={onOpacityChange} />
+        <SliderRow label="Radius"     value={spread}    min={0}   max={100} step={1}    unit="%" onChange={onSpreadChange} />
+        <SliderRow label="Card Width" value={cardWidth} min={80}  max={350} step={1}    unit="px" onChange={onCardWidthChange} />
+        <SliderRow label="Gap"        value={gap}       min={0}   max={100} step={1}    unit="px" onChange={onGapChange} />
+      </div>
     </div>
     <div className="mt-4 pt-4 border-t border-neutral-200/60 dark:border-neutral-700/60">
       <p className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-4">Rotation</p>
