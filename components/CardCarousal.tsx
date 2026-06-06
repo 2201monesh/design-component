@@ -39,6 +39,9 @@ const CardCarousal = () => {
   const [spread, setSpread] = useState(100)   // 0 = flat row, 100 = full hexagon
   const [cardWidth, setCardWidth] = useState(288)
   const [gap, setGap] = useState(30)
+  const [tiltX, setTiltX] = useState(0)
+  const [tiltY, setTiltY] = useState(0)
+  const [tiltZ, setTiltZ] = useState(0)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const lastTouchX = useRef(0)
@@ -86,27 +89,34 @@ const CardCarousal = () => {
         style={{ width: '800px', height: '300px', perspective: '1000px' }}
       >
         <div
-          className="relative h-34"
           style={{
-            width: cardWidth,
             transformStyle: 'preserve-3d',
-            transform: `rotateY(${rotation}deg)`,
+            transform: `rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotateZ(${tiltZ}deg)`,
           }}
         >
-          {CARD_IMAGES.map((img, i) => (
-            <Card
-              key={i}
-              index={i}
-              image={img}
-              label={CARD_LABELS[i]}
-              chips={CARD_CHIPS[i]}
-              opacity={opacity}
-              t={t}
-              hexRadius={hexRadius}
-              cardWidth={cardWidth}
-              gap={gap}
-            />
-          ))}
+          <div
+            className="relative h-34"
+            style={{
+              width: cardWidth,
+              transformStyle: 'preserve-3d',
+              transform: `rotateY(${rotation}deg)`,
+            }}
+          >
+            {CARD_IMAGES.map((img, i) => (
+              <Card
+                key={i}
+                index={i}
+                image={img}
+                label={CARD_LABELS[i]}
+                chips={CARD_CHIPS[i]}
+                opacity={opacity}
+                t={t}
+                hexRadius={hexRadius}
+                cardWidth={cardWidth}
+                gap={gap}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
@@ -115,6 +125,9 @@ const CardCarousal = () => {
         spread={spread}          onSpreadChange={setSpread}
         cardWidth={cardWidth}    onCardWidthChange={setCardWidth}
         gap={gap}                onGapChange={setGap}
+        tiltX={tiltX}            onTiltXChange={setTiltX}
+        tiltY={tiltY}            onTiltYChange={setTiltY}
+        tiltZ={tiltZ}            onTiltZChange={setTiltZ}
       />
     </>
   )
@@ -219,6 +232,9 @@ type SettingsPanelProps = {
   spread: number;       onSpreadChange: (v: number) => void
   cardWidth: number;    onCardWidthChange: (v: number) => void
   gap: number;          onGapChange: (v: number) => void
+  tiltX: number;        onTiltXChange: (v: number) => void
+  tiltY: number;        onTiltYChange: (v: number) => void
+  tiltZ: number;        onTiltZChange: (v: number) => void
 }
 
 const SettingsPanel = ({
@@ -226,6 +242,9 @@ const SettingsPanel = ({
   spread, onSpreadChange,
   cardWidth, onCardWidthChange,
   gap, onGapChange,
+  tiltX, onTiltXChange,
+  tiltY, onTiltYChange,
+  tiltZ, onTiltZChange,
 }: SettingsPanelProps) => (
   <div className="fixed bottom-6 right-6 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-neutral-200/60 dark:border-neutral-700/60 rounded-2xl shadow-sm p-4 w-52">
     <p className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-4">Controls</p>
@@ -234,6 +253,14 @@ const SettingsPanel = ({
       <SliderRow label="Radius"     value={spread}    min={0}   max={100} step={1}    unit="%" onChange={onSpreadChange} />
       <SliderRow label="Card Width" value={cardWidth} min={80}  max={350} step={1}    unit="px" onChange={onCardWidthChange} />
       <SliderRow label="Gap"        value={gap}       min={0}   max={100} step={1}    unit="px" onChange={onGapChange} />
+    </div>
+    <div className="mt-4 pt-4 border-t border-neutral-200/60 dark:border-neutral-700/60">
+      <p className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-4">Rotation</p>
+      <div className="space-y-4">
+        <SliderRow label="Rotate X" value={tiltX} min={-90}  max={90}  step={1} unit="°" onChange={onTiltXChange} />
+        <SliderRow label="Rotate Y" value={tiltY} min={-180} max={180} step={1} unit="°" onChange={onTiltYChange} />
+        <SliderRow label="Rotate Z" value={tiltZ} min={-180} max={180} step={1} unit="°" onChange={onTiltZChange} />
+      </div>
     </div>
   </div>
 )
