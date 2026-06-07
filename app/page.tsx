@@ -11,6 +11,7 @@ import HoverPageComponent from "@/components/HoverPageComponent";
 import LetterWave from "@/components/LetterWave";
 import MacKeyboard from "@/components/MacKeyboard";
 import NavBarScrollAnimation from "@/components/NavBarScrollAnimation";
+import NavbarToolAnimation from "@/components/NavbarToolAnimation";
 import ScratchCard from "@/components/ScratchCard";
 import SelectCardsAnimation from "@/components/SelectCardsAnimation";
 import SpringCards from "@/components/SpringCards";
@@ -39,7 +40,8 @@ export default function Home() {
       {/* <TableComponent /> */}
       {/* <BookCardAnimation /> */}
       {/* <TwitterTabsSwitchAnimation /> */}
-      <CardCarousal />
+      {/* <CardCarousal /> */}
+      <NavbarToolAnimation />
     </div>
   );
 }
