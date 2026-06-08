@@ -14,6 +14,7 @@ import NavBarScrollAnimation from "@/components/NavBarScrollAnimation";
 import NavbarToolAnimation from "@/components/NavbarToolAnimation";
 import ScratchCard from "@/components/ScratchCard";
 import SelectCardsAnimation from "@/components/SelectCardsAnimation";
+import SidebarTemplateDesign from "@/components/sidebar-template-design";
 import SpringCards from "@/components/SpringCards";
 import TableComponent from "@/components/TableComponent";
 import TodoListAnimation from "@/components/TodoListAnimation";
@@ -21,7 +22,7 @@ import TwitterTabsSwitchAnimation from "@/components/TwitterTabsSwitchAnimation"
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-screen">
+    <div className="flex flex-col items-center justify-center  w-screen h-screen">
       {/* <DiscordAnimation /> */}
       {/* <MacKeyboard /> */}
       {/* <SpringCards /> */}
@@ -41,7 +42,8 @@ export default function Home() {
       {/* <BookCardAnimation /> */}
       {/* <TwitterTabsSwitchAnimation /> */}
       {/* <CardCarousal /> */}
-      <NavbarToolAnimation />
+      {/* <NavbarToolAnimation /> */}
+      <SidebarTemplateDesign />
     </div>
   );
 }
