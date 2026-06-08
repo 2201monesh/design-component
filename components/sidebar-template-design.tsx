@@ -1,4 +1,5 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { TbLayoutSidebarFilled } from "react-icons/tb";
 
 const SidebarTemplateDesign = () => {
   return (
@@ -6,7 +7,7 @@ const SidebarTemplateDesign = () => {
         <div className='w-170 h-120 rounded-tr-3xl bg-[#ECECEE] flex font-sans'>
             <div className='w-[45%] h-full rounded-tr-3xl bg-[#FFFFFF]'>
                 <div className='h-16 border-b border-b-neutral-200 flex items-center justify-end px-6'>
-                    <div className='border border-neutral-200 flex items-center gap-2 pl-2 pr-3 py-1 rounded-lg text-sm'>
+                    <div className='border border-neutral-200 flex items-center gap-2 pl-2 pr-3 py-1 rounded-lg text-sm cursor-pointer shadow-sm'>
                         <p className="text-sm">Save As</p>
                         <MdKeyboardArrowDown size={18} />
                     </div>
@@ -26,7 +27,23 @@ const SidebarTemplateDesign = () => {
                     <p className="text-xs mt-4 text-neutral-500">panel to support fast adoptions.</p>
                 </div>
             </div>
-            hello
+            <div className="w-[55%] h-full">
+                <div className='h-16 w-full border-b border-b-neutral-200 flex items-center px-6 justify-between'>
+                    <div className="flex items-center">
+                        <div className="mr-2 w-9 h-9 rounded-full" style={{ backgroundImage: "url('https://i.pinimg.com/736x/70/78/34/7078347685f24bf530c26835e549e776.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+                        <div className="flex flex-col">
+                            <p className="text-sm">Project Breeze Aquisition</p>
+                            <p className="text-xs text-neutral-500">Updated 2 mins ago</p>
+                        </div>
+                    </div>
+                    <TbLayoutSidebarFilled size={18} className="text-neutral-500" />
+                </div>
+                <div className="mt-8 px-6 w-full">
+                    <div className="w-full rounded-xl h-9 bg-white flex items-center px-3">
+                        <p className="text-sm">Does this contract require board approval?</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
   )
