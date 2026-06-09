@@ -19,7 +19,7 @@ const SidebarTemplateDesign = () => {
                 </div>
                 <div className="mt-8 text-div">
                     <h1 className="text-lg">Memorandum</h1>
-                    <div className="-ml-12 mt-6 space-y-4 px-6">
+                    <div className="-ml-12 mt-4 space-y-4 px-6">
                         <p className="text-xs text-neutral-500 leading-5">speed up diligence and cut down on manual review cycles, ensuring faster and more stable detection running in test environments with improved coverage across all systems.</p>
                         <p className="text-xs text-neutral-500 leading-5">s, expected to unlock end-to-end tracking of turnaround times and reduced duplication of effort with concise</p>
                         <p className="text-xs text-neutral-500 leading-5">enabling faster adoption across investment, legal, and ops teams.</p>
