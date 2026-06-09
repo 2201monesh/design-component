@@ -10,30 +10,21 @@ const SidebarTemplateDesign = () => {
   return (
     <div className='w-190 h-140 flex items-end outer-div border-l border-l-neutral-200' style={{ backgroundImage: "url('https://i.pinimg.com/736x/a4/8d/40/a48d40b86c7bc07e316fb5dcf67c5338.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className='w-170 h-120 rounded-tr-3xl bg-[#ECECEE] flex font-sans'>
-            <div className='w-[45%] h-full rounded-tr-3xl bg-[#FFFFFF]'>
+            <div className='w-[45%] h-full rounded-tr-3xl bg-[#FFFFFF] overflow-hidden'>
                 <div className='h-16 border-b border-b-neutral-200 flex items-center justify-end px-6'>
-                    {/* <div className='border border-neutral-200 flex items-center gap-2 pl-2 pr-3 py-1 rounded-lg text-sm cursor-pointer'>
-                        <p className="text-sm">Save as</p>
-                        <MdKeyboardArrowDown size={18} />
-                    </div> */}
                     <div className='border border-neutral-200 divide-x divide-neutral-200 flex items-center rounded-lg text-sm cursor-pointer'>
                         <button className="pl-3.5 pr-3 py-1 cursor-pointer">Save as</button>
                         <button className="pl-1.5 pr-2 py-1 cursor-pointer"><MdKeyboardArrowDown size={18} /></button>
                     </div>
                 </div>
-                <div className="mt-8">
+                <div className="mt-8 text-div">
                     <h1 className="text-lg">Memorandum</h1>
-                    <p className="text-xs  mt-6 text-neutral-500">speed up dilligence and cut down on</p>
-                    <p className="text-xs  mt-6 text-neutral-500">nd stable</p>
-                    <p className="text-xs text-neutral-500">detection running in test enviornments with</p>
-                    <p className="text-xs mt-4 text-neutral-500">s, expected to unlock end-to-end tracking of</p>
-                    <p className="text-xs mt-4 text-neutral-500">turnaround times and reduced duplication of</p>
-                    <p className="text-xs mt-6 text-neutral-500">s with concise, reliable summaries.</p>
-                    <p className="text-xs text-neutral-500">ds  for cross-team inputs.</p>
-                    <p className="text-xs text-neutral-500">mpliance and visibility.</p>
-                    <p className="text-xs text-neutral-500">y and rollback for accuracy in diligence.</p>
-                    <p className="text-xs mt-4 text-neutral-500">eams across investment, legal, and ops.</p>
-                    <p className="text-xs mt-4 text-neutral-500">panel to support fast adoptions.</p>
+                    <div className="-ml-12 mt-6 space-y-4 px-6">
+                        <p className="text-xs text-neutral-500 leading-5">speed up diligence and cut down on manual review cycles, ensuring faster and more stable detection running in test environments with improved coverage across all systems.</p>
+                        <p className="text-xs text-neutral-500 leading-5">s, expected to unlock end-to-end tracking of turnaround times and reduced duplication of effort with concise</p>
+                        <p className="text-xs text-neutral-500 leading-5">enabling faster adoption across investment, legal, and ops teams.</p>
+                        <p className="text-xs text-neutral-500 leading-5">panel to support fast adoptions and streamline the approval process for all major transactions requiring board review and legal sign-off.</p>
+                    </div>
                 </div>
             </div>
             <div className="w-[55%] h-full">
