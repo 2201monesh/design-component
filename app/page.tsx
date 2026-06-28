@@ -19,10 +19,12 @@ import SpringCards from "@/components/SpringCards";
 import TableComponent from "@/components/TableComponent";
 import TodoListAnimation from "@/components/TodoListAnimation";
 import TwitterTabsSwitchAnimation from "@/components/TwitterTabsSwitchAnimation";
+import SignupForm from "../components/signup-form";
+import ToastNotifications from "@/components/ToastNotifications";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center  w-screen h-screen">
+    <div className="flex flex-col items-center justify-center w-screen h-screen bg-neutral-50">
       {/* <DiscordAnimation /> */}
       {/* <MacKeyboard /> */}
       {/* <SpringCards /> */}
@@ -43,7 +45,9 @@ export default function Home() {
       {/* <TwitterTabsSwitchAnimation /> */}
       {/* <CardCarousal /> */}
       {/* <NavbarToolAnimation /> */}
-      <SidebarTemplateDesign />
+      {/* <SidebarTemplateDesign /> */}
+      {/* <SignupForm /> */}
+      <ToastNotifications />
     </div>
   );
 }
